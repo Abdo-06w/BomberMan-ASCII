@@ -4,20 +4,6 @@
 #include "Bomba.h"
 
 
-
-/*Player::Player(WINDOW *win,int y,int x,char c,Stanza *s,Bomba* b) {
-
-    currWindow = win;
-    position.y = y;
-    position.x = x;
-    character = c;
-    stanza = s;
-    bomba = b;
-    keypad(currWindow, true);
-    getmaxyx(currWindow, maxPos.y, maxPos.x);
-
-}*/
-
 Player::Player(WINDOW *win,Position p, char c,Bomba* b, Stanza* s) {
 
     playerPosition = p;
@@ -98,45 +84,6 @@ void Player::handleInput(int input) {
             default: break;
     }
 }
-
-/*int Player::getMovement() {
-
-    int choice = wgetch(currWindow);
-
-    switch (choice) {
-        case KEY_UP:
-            moveUp();
-            break;
-        case KEY_DOWN:
-            moveDown();
-            break;
-        case KEY_LEFT:
-            moveLeft();
-            break;
-        case KEY_RIGHT:
-            moveRight();
-            break;
-        case 32:
-            droppaBomba();
-        default:
-            break;
-    }
-
-    return choice;
-
-}*/
-
-/*void Player::display() {
-
-    PositionBomba b = bomba->getPosition();
-
-    mvwaddch(currWindow, b.y, b.x,bomba->getCharacter());
-    mvwaddch(currWindow, playerPosition.y, position.x, character);
-
-    bomba->update();
-
-
-};*/
 
 
 

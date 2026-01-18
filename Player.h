@@ -7,9 +7,6 @@
 #include "Stanza.h"
 
 
-
-
-
 class Player {
  protected:
 
@@ -23,17 +20,13 @@ class Player {
 
 
 
-
-
  public:
-
-     /*Player(WINDOW *win,int y, int x,char c,Stanza *s,Bomba* b);*/
 
     Player(WINDOW *win,Position p, char c,Bomba* b,Stanza* s);
 
-     void setPosition(int y, int x);
+    void setPosition(int y, int x);
 
-     Position getPosition();
+    Position getPosition();
     Position getOldPosition();
 
     void moveUp();
@@ -45,12 +38,6 @@ class Player {
     void moveRight();
 
     void handleInput(int input);
-
-    /*
-    int getMovement();
-
-    void display();
-    */
 
     void droppaBomba();
 

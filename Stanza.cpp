@@ -44,19 +44,6 @@ Stanza::Stanza(WINDOW *win,int y,int x) {
 
 }
 
-
-/*void Stanza::stampaStanza() {
-
-
-    for (int i = 0; i < roomY; i++) {
-        for (int j = 0; j < roomX; j++) {
-            mvwaddch(currWindow, i + 1, j + 1, terreno[i][j] == 1 ? '#' : '.');
-        }
-    }
-    wrefresh(currWindow);
-
-}*/
-
 int Stanza::getStanzaX() {
     return roomX;
 }

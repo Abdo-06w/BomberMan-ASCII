@@ -39,14 +39,7 @@ class Bomba {
         void update();
 
 
-
-
-
-
-
-
-
-
+    
 };
 
 #endif //BOMBERMAN_BOMBA_H
