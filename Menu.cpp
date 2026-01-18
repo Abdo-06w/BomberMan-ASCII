@@ -2,30 +2,30 @@
 #include <curses.h>
 #include <cstring>
 #include "Menu.h"
+#include "gioco.h"
 
 using namespace std;
 
-const int Y_SIZE = 20;
-const int X_SIZE = 40;
+
 
 void mostraMenu() {
 
     int maxY,maxX;
     getmaxyx(stdscr, maxY, maxX);
 
-    int startX = (maxX - X_SIZE) / 2;
-    int startY = (maxY - Y_SIZE) / 2;
+    int startX = (maxX - X_GAME) / 2;
+    int startY = (maxY - Y_GAME) / 2;
 
     if (startX < 0) startX = 0;
     if (startY < 0) startY = 0;
 
-    WINDOW* menuWin = newwin(Y_SIZE, X_SIZE, startY, startX);
+    WINDOW* menuWin = newwin(Y_GAME, X_GAME, startY, startX);
     refresh();
     box(menuWin, 0, 0);
     wrefresh(menuWin);
 
     const char* gameName = "BOMBERMAN ASCII";
-    int nameX = (X_SIZE - strlen(gameName)) / 2;
+    int nameX = (X_GAME - strlen(gameName)) / 2;
     int nameY = 5;
 
     wattron(menuWin, A_BOLD);
@@ -44,7 +44,7 @@ void mostraMenu() {
 
         for (int i = 0; i < n_choices; i++) {
             if (i == highlight) wattron(menuWin, A_REVERSE);
-            mvwprintw(menuWin, 10 + i * 3, (X_SIZE - strlen(choices[i])) / 2, "%s", choices[i]);
+            mvwprintw(menuWin, 10 + i * 3, (X_GAME - strlen(choices[i])) / 2, "%s", choices[i]);
             if (i == highlight) wattroff(menuWin, A_REVERSE);
         }
         wrefresh(menuWin);
