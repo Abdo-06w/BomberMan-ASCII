@@ -2,7 +2,7 @@
 #define BOMBERMAN_BOMBA_H
 
 #include <ctime>
-
+#include "Stanza.h"
 #include "gioco.h"
 
 
@@ -13,17 +13,23 @@ class Bomba {
      Position bombPosition;
      bool dropped = false;
      bool exploded = false;
-    time_t start;
-    time_t explodedTime;
+     time_t start;
+     time_t explodedTime;
+     int rangeExplosion = 1;
+     Stanza* room;
 
 
     public:
 
-        Bomba(int y,int x,char c);
+        Bomba(int y,int x,char c,Stanza* s);
 
         void setPosition(int y, int x);
+
         Position getPosition();
         char getCharacter();
+        int getRangeExplosion();
+
+        void resetBomb();
 
         bool isDropped();
         void setDropped(bool d);
@@ -39,7 +45,6 @@ class Bomba {
         void update();
 
 
-    
 };
 
 #endif //BOMBERMAN_BOMBA_H

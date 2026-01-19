@@ -13,4 +13,6 @@ struct Position {
 constexpr int Y_GAME = 22;
 constexpr int X_GAME = 42;
 
+constexpr  Position directions[4] = { {1,0}, {-1,0}, {0,1}, {0,-1} };
+
 #endif //BOMBERMAN_GIOCO_H

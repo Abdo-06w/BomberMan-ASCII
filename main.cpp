@@ -34,8 +34,8 @@ int main() {
 
 
     Stanza *x = new Stanza(test,20,40);
-    Bomba *b = new Bomba(0,0,'*');
-    Player *p = new Player(test,{1,1},'@',b,x);
+    Bomba *b = new Bomba(0,0,'*',x);
+    Player *p = new Player({0,0},'@',b,x);
     Render *r = new Render(test,x);
     r->setBomba(b);
     r->setPlayer(p);

@@ -56,3 +56,7 @@ int Stanza::getStanzaY() {
 bool Stanza::isMuro(int y,int x) {
     return terreno[y][x] == 1;
 }
+
+void Stanza::breakWall(int y, int x) {
+    terreno[y][x] = 0;
+}

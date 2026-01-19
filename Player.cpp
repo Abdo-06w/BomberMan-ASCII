@@ -4,14 +4,12 @@
 #include "Bomba.h"
 
 
-Player::Player(WINDOW *win,Position p, char c,Bomba* b, Stanza* s) {
+Player::Player(Position p, char c,Bomba* b, Stanza* s) {
 
     playerPosition = p;
     bomba = b;
     character = c;
     stanza = s;
-    currWindow = win;
-    getmaxyx(win, maxPos.y, maxPos.x);
 
 }
 
@@ -27,17 +25,17 @@ Position Player::getPosition() {
 Position Player::getOldPosition() {
     return oldPosition;
 }
+char Player::getCharacter() {
+    return character;
+}
+
 
 void Player::droppaBomba() {
-    if (bomba->isDropped())
+    if (bomba->isDropped() || bomba->isExploded())
         return;
 
     bomba->drop(playerPosition);
 
-}
-
-char Player::getCharacter() {
-    return character;
 }
 
 
@@ -45,32 +43,34 @@ char Player::getCharacter() {
 void Player::moveDown() {
     oldPosition = playerPosition;
     int newY = playerPosition.y + 1;
-    if (newY > maxPos.y - 2) newY = maxPos.y - 2;
-    if (stanza->isMuro(newY - 1, playerPosition.x - 1) == 1) newY--;
+    int roomY = stanza->getStanzaY();
+    if (newY > roomY - 1) newY = roomY - 1;
+    if (stanza->isMuro(newY , playerPosition.x ) == 1) newY--;
     playerPosition.y = newY;
 }
 
 void Player::moveUp() {
     oldPosition = playerPosition;
     int newY = playerPosition.y - 1;
-    if (newY < 1) newY = 1;
-    if (stanza->isMuro(newY - 1, playerPosition.x - 1) == 1) newY++;
+    if (newY < 0) newY = 0;
+    if (stanza->isMuro(newY , playerPosition.x ) == 1) newY++;
     playerPosition.y = newY;
 }
 
 void Player::moveLeft() {
     oldPosition = playerPosition;
     int newX = playerPosition.x - 1;
-    if (newX < 1) newX = 1;
-    if (stanza->isMuro(playerPosition.y - 1, newX - 1) == 1) newX++;
+    if (newX < 0) newX = 0;
+    if (stanza->isMuro(playerPosition.y , newX ) == 1) newX++;
     playerPosition.x = newX;
 }
 
 void Player::moveRight() {
     oldPosition = playerPosition;
     int newX = playerPosition.x + 1;
-    if (newX > maxPos.x - 2) newX = maxPos.x - 2;
-    if (stanza->isMuro(playerPosition.y - 1, newX - 1) == 1) newX--;
+    int roomX = stanza->getStanzaX();
+    if (newX > roomX - 1) newX = roomX - 1;
+    if (stanza->isMuro(playerPosition.y , newX ) == 1) newX--;
     playerPosition.x = newX;
 }
 

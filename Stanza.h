@@ -25,6 +25,8 @@ class Stanza {
 
         int getStanzaX();
 
+        void breakWall(int y, int x);
+
 
 
 };

@@ -29,9 +29,9 @@ class Render {
     void setStanza(Stanza *r);
 
     void renderPlayer();
-    void renderBomba();
 
-    void bombUpdate();
+    void renderExplosion();
+    void renderBomba();
 
     void display();
 

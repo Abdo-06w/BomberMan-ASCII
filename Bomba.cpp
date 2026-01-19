@@ -3,10 +3,11 @@
 #include "Player.h"
 #include <ctime>
 
-Bomba::Bomba(int y,int x,char c) {
+Bomba::Bomba(int y,int x,char c,Stanza* s) {
     bombPosition.y = y;
     bombPosition.x = x;
     character = c;
+    room = s;
 }
 
 
@@ -25,6 +26,10 @@ char Bomba::getCharacter() {
     return character;
 }
 
+int Bomba::getRangeExplosion() {
+    return rangeExplosion;
+}
+
 bool Bomba::isDropped() {
     return dropped;
 }
@@ -33,6 +38,21 @@ void Bomba::setDropped(bool d) {
     dropped = d;
 }
 
+void Bomba::setExploded(bool e) {
+    exploded = e;
+}
+
+
+bool Bomba::isExploded() {
+    return exploded;
+}
+
+void Bomba::resetBomb() {
+    exploded = false;
+    bombPosition.y = -1;
+    bombPosition.x = -1;
+
+}
 
 void Bomba::drop(Position p) {
 
@@ -48,30 +68,40 @@ void Bomba::update() {
     time_t now = time(NULL);
 
     if (dropped && difftime(now, start) > 2) {
-        dropped = false;
+
         explode();
         exploded = true;
         explodedTime = now;
+        dropped = false;
     }
+    if (exploded && difftime(now, explodedTime) > 1)
+        resetBomb();
 
-    if (exploded && difftime(now, explodedTime) > 1) {
-        exploded = false;
-        bombPosition.y = -1;
-        bombPosition.x = -1;
-    }
-}
-
-void Bomba::setExploded(bool e) {
-    exploded = e;
-}
-
-
-bool Bomba::isExploded() {
-    return exploded;
 }
 
 
 void Bomba::explode() {
 
+    Position b = bombPosition;
+    int newY,newX;
+
+    if (room->isMuro(b.y, b.x))
+        room->breakWall(b.y, b.x);
+
+    for (int i = 0; i < 4; i++) {
+
+        for (int j = 1; j <= rangeExplosion; j++) {
+
+            newY = b.y + directions[i].y * j ;
+            newX = b.x + directions[i].x * j ;
+
+            if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX())
+                break;
+
+            if (room->isMuro(newY,newX))room->breakWall(newY,newX);
+
+        }
+
+    }
 }
 

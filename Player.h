@@ -16,13 +16,12 @@ class Player {
     Bomba* bomba;
     Stanza* stanza;
     Position maxPos;
-    WINDOW *currWindow;
 
 
 
  public:
 
-    Player(WINDOW *win,Position p, char c,Bomba* b,Stanza* s);
+    Player(Position p, char c,Bomba* b,Stanza* s);
 
     void setPosition(int y, int x);
 
@@ -42,6 +41,8 @@ class Player {
     void droppaBomba();
 
     char getCharacter();
+
+
 
 
 };
