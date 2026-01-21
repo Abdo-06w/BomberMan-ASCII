@@ -1,24 +1,29 @@
 #ifndef BOMBERMAN_CHARACTER_H
 #define BOMBERMAN_CHARACTER_H
 
-#include "gioco.h"
+#include "Position.h"
 #include "Stanza.h"
 
 
 class Entity {
     protected:
     Position playerPosition;
-    Position oldPosition;
     char character;
     Stanza* stanza;
+    int vita;
 
     public:
 
     void setPosition(int y, int x);
+    void setVita(int v);
 
     Position getPosition();
-    Position getOldPosition();
     char getCharacter();
+    int getVita();
+
+    void decreaseLife();
+
+
 
 
 

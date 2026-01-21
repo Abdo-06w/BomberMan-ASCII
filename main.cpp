@@ -1,15 +1,14 @@
-
 #include <iostream>
 #include <curses.h>
-
-#include "gioco.h"
+#include "Globals.h"
 #include "Menu.h"
 #include "Player.h"
 #include "Stanza.h"
 #include "Render.h"
+#include <cstring>
+#include "Game.h"
 
 using namespace std;
-
 
 
 int main() {
@@ -33,36 +32,29 @@ int main() {
 
 
 
-
-    Stanza *x = new Stanza(test,20,40);
-    Bomba *b = new Bomba(0,0,'*',x);
-    Player *p = new Player({0,0},b,x);
-    Render *r = new Render(test,x);
-
-    r->setBomba(b);
-    r->setPlayer(p);
-    r->setStanza(x);
-
+    Game* g = new Game(test);
 
 
     int input;
 
-    r->renderPlayer();
-
+    g->getRender()->display();
 
     nodelay(test, TRUE);
 
     do{
-        b->update();
+
+        g->update();
+        g->damage();
 
 
         input = wgetch(test);
         if (input != ERR) {
-            p->handleInput(input);
+            g->getPlayer()->handleInput(input);
         }
 
+
         werase(test);
-        r->display();
+        g->renderGame();
         wrefresh(test);
 
 
@@ -79,3 +71,4 @@ int main() {
 
 
 // g++ *.cpp -o bomber -lpdcurses
+// g++ *.cpp -o bomber -lncurses

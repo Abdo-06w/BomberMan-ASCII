@@ -3,7 +3,7 @@
 
 #include <ctime>
 #include "Stanza.h"
-#include "gioco.h"
+#include "Globals.h"
 
 
 

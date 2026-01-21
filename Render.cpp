@@ -1,6 +1,6 @@
 #include "Render.h"
 #include <curses.h>
-#include "gioco.h"
+#include "Globals.h"
 #include "Player.h"
 #include "Stanza.h"
 #include "Bomba.h"
@@ -26,13 +26,19 @@ void Render::setStanza(Stanza *r) {
 }
 
 
-void Render::renderPlayer() {
 
-    Position o = player->getOldPosition();
-    mvwaddch(win,o.y + 1,o.x + 1,' ');
+void Render::renderPlayer() {
 
     Position p = player->getPosition();
     mvwaddch(win,p.y + 1,p.x + 1,player->getCharacter());
+
+}
+
+void Render::renderEnemy(Enemy* e) {
+    if (!e) return;
+
+    Position p = e->getPosition();
+    mvwaddch(win, p.y + 1, p.x + 1, e->getCharacter());
 
 }
 
@@ -71,10 +77,15 @@ void Render::renderBomba() {
 void Render::display() {
 
     box(win, 0, 0);
+    mvwprintw(win,0,10, "Vita: %d", player->getVita());
     for (int i = 0; i < room->getStanzaY(); i++) {
         for (int j = 0; j < room->getStanzaX(); j++) {
             mvwaddch(win, i + 1, j + 1, room->isMuro(i, j) ? '#' : room->isMuroInd(i, j) ? '+' : '.');
         }
+    }
+
+    for (int i = 0; i < numNemici; i++) {
+        renderEnemy(nemici[i]);
     }
 
     renderPlayer();

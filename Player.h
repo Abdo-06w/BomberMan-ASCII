@@ -2,7 +2,7 @@
 #define BOMBERMAN_PLAYER_H
 
 #include <curses.h>
-#include "gioco.h"
+#include "Globals.h"
 #include "Bomba.h"
 #include "Stanza.h"
 #include "Entity.h"
@@ -28,6 +28,8 @@ class Player : public Entity {
     void handleInput(int input);
 
     void droppaBomba();
+
+
 
 
 

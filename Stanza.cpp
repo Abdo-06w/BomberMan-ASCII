@@ -1,5 +1,5 @@
 #include "Stanza.h"
-#include "gioco.h"
+#include "Globals.h"
 #include <fstream>
 #include <cstring>
 #include <iostream>

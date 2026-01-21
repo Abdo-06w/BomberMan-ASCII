@@ -2,7 +2,7 @@
 #include <curses.h>
 #include <cstring>
 #include "Menu.h"
-#include "gioco.h"
+#include "Globals.h"
 
 using namespace std;
 

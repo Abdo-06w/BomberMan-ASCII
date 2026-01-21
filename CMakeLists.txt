@@ -8,8 +8,8 @@ add_executable(BomberMan main.cpp
         Menu.h
         Player.cpp
         Player.h
-        gioco.cpp
-        gioco.h
+        Globals.cpp
+        Globals.h
         Stanza.cpp
         Stanza.h
         Bomba.cpp
@@ -18,4 +18,9 @@ add_executable(BomberMan main.cpp
         Render.h
         Entity.cpp
         Entity.h
+        Enemy.cpp
+        Enemy.h
+        Position.h
+        Game.cpp
+        Game.h
 )

@@ -1,10 +1,11 @@
 #ifndef BOMBERMAN_RENDER_H
 #define BOMBERMAN_RENDER_H
 #include <curses.h>
-#include "gioco.h"
+#include "Globals.h"
 #include "Player.h"
 #include "Stanza.h"
 #include "Bomba.h"
+#include "Enemy.h"
 
 
 
@@ -17,6 +18,7 @@ protected:
   Stanza *room;
   Position maxPos;
   Bomba* bomba;
+  Enemy* enemies[];
 
 
 
@@ -27,8 +29,10 @@ public:
   void setPlayer(Player *p);
   void setBomba(Bomba *b);
   void setStanza(Stanza *r);
+  void setEnemies(Enemy* e[],int numNemici);
 
   void renderPlayer();
+  void renderEnemy(Enemy* e);
 
   void renderExplosion();
   void renderBomba();

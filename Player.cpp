@@ -1,4 +1,4 @@
-#include "gioco.h"
+#include "Globals.h"
 #include "Player.h"
 #include "Stanza.h"
 #include "Bomba.h"
@@ -10,6 +10,7 @@ Player::Player(Position p, Bomba* b, Stanza* s) {
     bomba = b;
     stanza = s;
     character = '@';
+    vita = 3;
 
 }
 
@@ -24,7 +25,7 @@ void Player::droppaBomba() {
 
 
 void Player::moveDown() {
-    oldPosition = playerPosition;
+
     int newY = playerPosition.y + 1;
     int roomY = stanza->getStanzaY();
     if (newY > roomY - 1) newY = roomY - 1;
@@ -33,7 +34,7 @@ void Player::moveDown() {
 }
 
 void Player::moveUp() {
-    oldPosition = playerPosition;
+
     int newY = playerPosition.y - 1;
     if (newY < 0) newY = 0;
     if (stanza->isMuro(newY , playerPosition.x) || stanza->isMuroInd(newY , playerPosition.x)) newY++;
@@ -41,7 +42,7 @@ void Player::moveUp() {
 }
 
 void Player::moveLeft() {
-    oldPosition = playerPosition;
+
     int newX = playerPosition.x - 1;
     if (newX < 0) newX = 0;
     if (stanza->isMuro(playerPosition.y , newX) || stanza->isMuroInd(playerPosition.y , newX)) newX++;
@@ -49,7 +50,6 @@ void Player::moveLeft() {
 }
 
 void Player::moveRight() {
-    oldPosition = playerPosition;
     int newX = playerPosition.x + 1;
     int roomX = stanza->getStanzaX();
     if (newX > roomX - 1) newX = roomX - 1;
