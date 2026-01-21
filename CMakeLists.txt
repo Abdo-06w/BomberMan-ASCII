@@ -16,4 +16,6 @@ add_executable(BomberMan main.cpp
         Bomba.h
         Render.cpp
         Render.h
+        Entity.cpp
+        Entity.h
 )

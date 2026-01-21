@@ -42,7 +42,7 @@ void Render::renderExplosion() {
     Position b = bomba->getPosition();
 
 
-        mvwaddch(win, b.y + 1, b.x + 1, 'X');
+    mvwaddch(win, b.y + 1, b.x + 1, 'X');
 
 
     for (int i = 0; i < 4; i++) {
@@ -50,7 +50,7 @@ void Render::renderExplosion() {
             int newY = b.y + directions[i].y * j;
             int newX = b.x + directions[i].x * j;
 
-            if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX())
+            if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX() || room->isMuroInd(newY, newX))
                 continue;
 
             mvwaddch(win, newY + 1, newX + 1, 'X');
@@ -73,7 +73,7 @@ void Render::display() {
     box(win, 0, 0);
     for (int i = 0; i < room->getStanzaY(); i++) {
         for (int j = 0; j < room->getStanzaX(); j++) {
-            mvwaddch(win, i + 1, j + 1, room->isMuro(i, j) ? '#' : '.');
+            mvwaddch(win, i + 1, j + 1, room->isMuro(i, j) ? '#' : room->isMuroInd(i, j) ? '+' : '.');
         }
     }
 

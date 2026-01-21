@@ -21,6 +21,8 @@ class Stanza {
 
         bool isMuro(int y,int x);
 
+        bool isMuroInd(int y,int x);
+
         int getStanzaY();
 
         int getStanzaX();

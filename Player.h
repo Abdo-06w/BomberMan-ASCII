@@ -5,28 +5,17 @@
 #include "gioco.h"
 #include "Bomba.h"
 #include "Stanza.h"
+#include "Entity.h"
 
 
-class Player {
+class Player : public Entity {
  protected:
 
-    Position playerPosition;
-    Position oldPosition;
-    char character;
     Bomba* bomba;
-    Stanza* stanza;
-    Position maxPos;
-
-
 
  public:
 
-    Player(Position p, char c,Bomba* b,Stanza* s);
-
-    void setPosition(int y, int x);
-
-    Position getPosition();
-    Position getOldPosition();
+    Player(Position p ,Bomba* b,Stanza* s);
 
     void moveUp();
 
@@ -40,7 +29,7 @@ class Player {
 
     void droppaBomba();
 
-    char getCharacter();
+
 
 
 

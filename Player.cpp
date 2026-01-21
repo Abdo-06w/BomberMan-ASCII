@@ -2,33 +2,16 @@
 #include "Player.h"
 #include "Stanza.h"
 #include "Bomba.h"
+#include "Entity.h"
 
 
-Player::Player(Position p, char c,Bomba* b, Stanza* s) {
-
+Player::Player(Position p, Bomba* b, Stanza* s) {
     playerPosition = p;
     bomba = b;
-    character = c;
     stanza = s;
+    character = '@';
 
 }
-
-
-void Player::setPosition(int y, int x) {
-    playerPosition.y = y;
-    playerPosition.x = x;
-}
-
-Position Player::getPosition() {
-    return playerPosition;
-}
-Position Player::getOldPosition() {
-    return oldPosition;
-}
-char Player::getCharacter() {
-    return character;
-}
-
 
 void Player::droppaBomba() {
     if (bomba->isDropped() || bomba->isExploded())
@@ -45,7 +28,7 @@ void Player::moveDown() {
     int newY = playerPosition.y + 1;
     int roomY = stanza->getStanzaY();
     if (newY > roomY - 1) newY = roomY - 1;
-    if (stanza->isMuro(newY , playerPosition.x ) == 1) newY--;
+    if (stanza->isMuro(newY , playerPosition.x) || stanza->isMuroInd(newY , playerPosition.x)) newY--;
     playerPosition.y = newY;
 }
 
@@ -53,7 +36,7 @@ void Player::moveUp() {
     oldPosition = playerPosition;
     int newY = playerPosition.y - 1;
     if (newY < 0) newY = 0;
-    if (stanza->isMuro(newY , playerPosition.x ) == 1) newY++;
+    if (stanza->isMuro(newY , playerPosition.x) || stanza->isMuroInd(newY , playerPosition.x)) newY++;
     playerPosition.y = newY;
 }
 
@@ -61,7 +44,7 @@ void Player::moveLeft() {
     oldPosition = playerPosition;
     int newX = playerPosition.x - 1;
     if (newX < 0) newX = 0;
-    if (stanza->isMuro(playerPosition.y , newX ) == 1) newX++;
+    if (stanza->isMuro(playerPosition.y , newX) || stanza->isMuroInd(playerPosition.y , newX)) newX++;
     playerPosition.x = newX;
 }
 
@@ -70,7 +53,7 @@ void Player::moveRight() {
     int newX = playerPosition.x + 1;
     int roomX = stanza->getStanzaX();
     if (newX > roomX - 1) newX = roomX - 1;
-    if (stanza->isMuro(playerPosition.y , newX ) == 1) newX--;
+    if (stanza->isMuro(playerPosition.y , newX) || stanza->isMuroInd(playerPosition.y , newX)) newX--;
     playerPosition.x = newX;
 }
 

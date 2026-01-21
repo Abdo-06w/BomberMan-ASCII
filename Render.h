@@ -10,30 +10,30 @@
 
 
 class Render {
-  protected:
+protected:
 
-    WINDOW *win;
-    Player *player;
-    Stanza *room;
-    Position maxPos;
-    Bomba* bomba;
+  WINDOW *win;
+  Player *player;
+  Stanza *room;
+  Position maxPos;
+  Bomba* bomba;
 
 
 
-  public:
+public:
 
-    Render(WINDOW *w,Stanza *s);
+  Render(WINDOW *w,Stanza *s);
 
-    void setPlayer(Player *p);
-    void setBomba(Bomba *b);
-    void setStanza(Stanza *r);
+  void setPlayer(Player *p);
+  void setBomba(Bomba *b);
+  void setStanza(Stanza *r);
 
-    void renderPlayer();
+  void renderPlayer();
 
-    void renderExplosion();
-    void renderBomba();
+  void renderExplosion();
+  void renderBomba();
 
-    void display();
+  void display();
 
 
 

@@ -95,7 +95,7 @@ void Bomba::explode() {
             newY = b.y + directions[i].y * j ;
             newX = b.x + directions[i].x * j ;
 
-            if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX())
+            if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX() || room->isMuroInd(newY, newX))
                 break;
 
             if (room->isMuro(newY,newX))room->breakWall(newY,newX);

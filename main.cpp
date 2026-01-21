@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <curses.h>
 
@@ -35,8 +36,9 @@ int main() {
 
     Stanza *x = new Stanza(test,20,40);
     Bomba *b = new Bomba(0,0,'*',x);
-    Player *p = new Player({0,0},'@',b,x);
+    Player *p = new Player({0,0},b,x);
     Render *r = new Render(test,x);
+
     r->setBomba(b);
     r->setPlayer(p);
     r->setStanza(x);
