@@ -84,10 +84,6 @@ void Render::display() {
         }
     }
 
-    for (int i = 0; i < numNemici; i++) {
-        renderEnemy(nemici[i]);
-    }
-
     renderPlayer();
     renderBomba();
 

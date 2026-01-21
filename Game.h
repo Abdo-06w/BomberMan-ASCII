@@ -10,22 +10,25 @@
 #include "Render.h"
 
 
+constexpr int MAX_NEMICI = 5;
+
 class Game {
     protected:
 
         Stanza* room;
         Player* player;
         Render *render;
-        Enemy* nemici[numNemici];
         Bomba* bomb;
         time_t lastDamageTime;
         int damageCooldown = 2;
+        Enemy** nemici;
+        int numNemici;
 
 
 
     public:
 
-    Game(WINDOW* w);
+    Game(WINDOW* w,int numEnemies);
 
     Player* getPlayer();
     Bomba* getBomba();

@@ -1,16 +1,29 @@
 #include "Game.h"
 
 
-Game::Game(WINDOW *win) {
+Game::Game(WINDOW *win,int numEnemies) {
+
+    if (numEnemies > MAX_NEMICI)numEnemies = MAX_NEMICI;
+
+    Position nemiciPos[MAX_NEMICI] = {
+        {3, 3},     // nemico 1
+        {6, 6},     // nemico 2
+        {10, 30},   // nemico 3
+        {5, 10},    // nemico 4
+        {8, 20}     // nemico 5
+    };
 
     room = new Stanza(win,20,40);
     bomb = new Bomba(-1,-1,'*',room);
     player = new Player({0,0},bomb,room);
     render = new Render(win,room);
 
-    nemici[0] = new Enemy{{17,3},room};
-    nemici[1] = new Enemy{{6,6},room};
-    nemici[2] = new Enemy{{10,30},room};
+    numNemici = numEnemies;
+    nemici = new Enemy*[numNemici];
+
+    for (int i = 0; i < numNemici; i++) {
+        nemici[i] = new Enemy(nemiciPos[i], room);
+    }
 
     render->setBomba(bomb);
     render->setPlayer(player);

@@ -18,7 +18,6 @@ protected:
   Stanza *room;
   Position maxPos;
   Bomba* bomba;
-  Enemy* enemies[];
 
 
 
@@ -29,7 +28,6 @@ public:
   void setPlayer(Player *p);
   void setBomba(Bomba *b);
   void setStanza(Stanza *r);
-  void setEnemies(Enemy* e[],int numNemici);
 
   void renderPlayer();
   void renderEnemy(Enemy* e);

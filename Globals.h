@@ -8,8 +8,7 @@ constexpr int X_GAME = 42;
 
 constexpr  Position directions[4] = { {1,0}, {-1,0}, {0,1}, {0,-1} };
 
-extern Enemy* nemici[3];
-constexpr int numNemici = 3;
+
 
 
 

@@ -32,7 +32,7 @@ int main() {
 
 
 
-    Game* g = new Game(test);
+    Game* g = new Game(test,4);
 
 
     int input;
