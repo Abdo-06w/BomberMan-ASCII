@@ -1,29 +1,16 @@
 #include "Game.h"
 
 
-Game::Game(WINDOW *win,int numEnemies) {
+Game::Game(WINDOW *win) {
 
-    if (numEnemies > MAX_NEMICI)numEnemies = MAX_NEMICI;
-
-    Position nemiciPos[MAX_NEMICI] = {
-        {3, 3},     // nemico 1
-        {6, 6},     // nemico 2
-        {10, 30},   // nemico 3
-        {5, 10},    // nemico 4
-        {8, 20}     // nemico 5
-    };
 
     room = new Stanza(win,20,40);
-    bomb = new Bomba(-1,-1,'*',room);
+    bomb = new Bomba(-2,-2,'*',room);
     player = new Player({0,0},bomb,room);
     render = new Render(win,room);
 
-    numNemici = numEnemies;
-    nemici = new Enemy*[numNemici];
-
-    for (int i = 0; i < numNemici; i++) {
-        nemici[i] = new Enemy(nemiciPos[i], room);
-    }
+    numNemici = 0;
+    nemici = new Enemy*[MAX_NEMICI];
 
     render->setBomba(bomb);
     render->setPlayer(player);
@@ -38,28 +25,45 @@ Stanza* Game::getRoom() { return room; }
 Enemy** Game::getEnemies() { return nemici; }
 Render* Game::getRender() { return render; }
 
+int Game::getNumNemici() {
+    return numNemici;
+}
 
-
-void Game::damage() {
-
-    time_t now = time(NULL);
-
-    Position p = player->getPosition();
-
-    if (difftime(now, lastDamageTime) < damageCooldown)
+void Game::addEnemy(Position p) {
+    if (numNemici >= MAX_NEMICI)
         return;
 
+    nemici[numNemici] = new Enemy(p, room);
+    numNemici++;
 
-        for (int i = 0; i < numNemici; i++) {
-            Position n = nemici[i]->getPosition();
-
-            if (n.y == p.y && n.x == p.x) {
-                player->decreaseLife();
-                lastDamageTime = now;
-                return;
-            }
-        }
 }
+
+
+void Game::checkEnemyLife() {
+    if (numNemici <= 0)return;
+
+    for (int i = 0; i < numNemici; i++) {
+
+        if (nemici[i]->getVita() <= 0) {
+
+            delete nemici[i];
+
+            nemici[i] = nemici[numNemici-1];
+            numNemici--;
+            i--;
+        }
+    }
+}
+
+void Game::bombDamage() {
+    for (int i = 0; i < numNemici; i++)
+        nemici[i]->takeBombDamage(bomb, damageCooldown);
+
+    player->takeBombDamage(damageCooldown);
+}
+
+
+
 
 void Game::update() {
 
@@ -68,6 +72,15 @@ void Game::update() {
         }
 
         bomb->update();
+
+        for (int i = 0; i < numNemici; i++)
+        player->takeEnemyDamage(nemici[i]->getPosition(), damageCooldown);
+
+        bombDamage();
+
+        checkEnemyLife();
+
+
 
 }
 

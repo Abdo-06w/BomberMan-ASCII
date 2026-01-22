@@ -3,6 +3,7 @@
 
 #include "Position.h"
 #include "Stanza.h"
+#include <ctime>
 
 
 class Entity {
@@ -11,6 +12,7 @@ class Entity {
     char character;
     Stanza* stanza;
     int vita;
+
 
     public:
 

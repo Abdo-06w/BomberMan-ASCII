@@ -19,8 +19,6 @@ protected:
   Position maxPos;
   Bomba* bomba;
 
-
-
 public:
 
   Render(WINDOW *w,Stanza *s);

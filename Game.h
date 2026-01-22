@@ -19,7 +19,8 @@ class Game {
         Player* player;
         Render *render;
         Bomba* bomb;
-        time_t lastDamageTime;
+
+
         int damageCooldown = 2;
         Enemy** nemici;
         int numNemici;
@@ -28,17 +29,26 @@ class Game {
 
     public:
 
-    Game(WINDOW* w,int numEnemies);
+    Game(WINDOW* w);
 
     Player* getPlayer();
     Bomba* getBomba();
     Stanza* getRoom();
-    Enemy** getEnemies();
     Render* getRender();
+    Enemy** getEnemies();
+    int getNumNemici();
 
     void update();
 
-    void damage();
+    void enemyDamage();
+    void bombDamagePlayer();
+
+    void damagePlayer();
+    void bombDamage();
+
+    void checkEnemyLife();
+
+    void addEnemy(Position p);
 
     void renderGame();
 

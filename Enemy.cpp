@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Enemy.h"
 #include "Stanza.h"
+#include "Bomba.h"
 #include <cstdlib>
 
 Enemy::Enemy(Position p, Stanza *s) {
@@ -39,9 +40,41 @@ void Enemy::update() {
 
     if (difftime(now, lastMoveTime) >= moveDelay) {
 
-        move();
+        /*move();*/
 
         lastMoveTime = now;
     }
 
 }
+
+void Enemy::takeBombDamage(Bomba* bomb, int damageCooldown) {
+    if (!bomb->isExploded()) return;
+
+    time_t now = time(NULL);
+    if (difftime(now, lastBombDamageTime) < damageCooldown)
+        return;
+
+    Position b = bomb->getPosition();
+    int r = bomb->getRangeExplosion();
+    Position p = getPosition();
+
+    if (b.y == p.y && b.x == p.x) {
+        decreaseLife();
+        lastBombDamageTime = now;
+        return;
+    }
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 1; j <= r; j++) {
+            int newY = b.y + directions[i].y * j;
+            int newX = b.x + directions[i].x * j;
+            if (newY == p.y && newX == p.x) {
+                decreaseLife();
+                lastBombDamageTime = now;
+                return;
+            }
+        }
+    }
+}
+
+

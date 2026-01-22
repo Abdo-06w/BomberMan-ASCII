@@ -68,5 +68,61 @@ void Player::handleInput(int input) {
     }
 }
 
+void Player::takeBombDamage(int coolDown) {
+
+    if (!bomba->isExploded())return;
+
+    time_t now = time(NULL);
+
+    if (difftime(now, lastBombDamageTime) < coolDown)
+        return;
+
+    Position p = getPosition();
+    Position b = bomba->getPosition();
+    int r = bomba->getRangeExplosion();
+
+
+
+    if (b.y == p.y && b.x == p.x) {
+        decreaseLife();
+        lastBombDamageTime = now;
+        return;
+    }
+
+    int newY,newX;
+
+    for (int i = 0; i < 4; i++) {
+
+        for (int j = 1; j <= r; j++) {
+
+            newY = b.y + directions[i].y * j ;
+            newX = b.x + directions[i].x * j ;
+
+            if (newY == p.y && newX == p.x) {
+                decreaseLife();
+                lastBombDamageTime = now;
+                return;
+            }
+        }
+    }
+
+}
+
+void Player::takeEnemyDamage(Position enemyPos,int coolDown) {
+
+    time_t now = time(NULL);
+    if (difftime(now, lastEnemyDamageTime) < coolDown)
+        return;
+
+    Position p = getPosition();
+    if (p.x == enemyPos.x && p.y == enemyPos.y) {
+        decreaseLife();
+        lastEnemyDamageTime = now;
+    }
+
+}
+
+
+
 
 

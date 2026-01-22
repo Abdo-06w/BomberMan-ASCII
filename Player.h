@@ -12,6 +12,8 @@ class Player : public Entity {
  protected:
 
     Bomba* bomba;
+    time_t lastEnemyDamageTime;
+    time_t lastBombDamageTime;
 
  public:
 
@@ -28,6 +30,10 @@ class Player : public Entity {
     void handleInput(int input);
 
     void droppaBomba();
+
+    void takeBombDamage(int coolDown);
+
+    void takeEnemyDamage(Position enemyPos,int coolDown);
 
 
 

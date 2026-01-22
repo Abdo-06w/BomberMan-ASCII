@@ -32,7 +32,9 @@ int main() {
 
 
 
-    Game* g = new Game(test,4);
+    Game* g = new Game(test);
+    g->addEnemy({4,4});
+    g->addEnemy({17,5});
 
 
     int input;
@@ -44,7 +46,6 @@ int main() {
     do{
 
         g->update();
-        g->damage();
 
 
         input = wgetch(test);
