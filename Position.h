@@ -2,10 +2,8 @@
 #define BOMBERMAN_POSITION_H
 
 struct Position {
-
-    int y;
-    int x;
-
+    int y ;
+    int x ;
 
 };
 

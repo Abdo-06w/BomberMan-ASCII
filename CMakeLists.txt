@@ -23,4 +23,8 @@ add_executable(BomberMan main.cpp
         Position.h
         Game.cpp
         Game.h
+        Points.cpp
+        Points.h
+        Item.cpp
+        Item.h
 )

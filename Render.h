@@ -6,6 +6,10 @@
 #include "Stanza.h"
 #include "Bomba.h"
 #include "Enemy.h"
+#include "Item.h"
+#include "Points.h"
+#include <vector>
+
 
 
 
@@ -18,6 +22,11 @@ protected:
   Stanza *room;
   Position maxPos;
   Bomba* bomba;
+  Points* points;
+  std::vector<Item*> items;
+
+
+
 
 public:
 
@@ -26,12 +35,16 @@ public:
   void setPlayer(Player *p);
   void setBomba(Bomba *b);
   void setStanza(Stanza *r);
+  void setPoints(Points *p);
 
   void renderPlayer();
   void renderEnemy(Enemy* e);
 
   void renderExplosion();
   void renderBomba();
+
+  void addItem(Item *i);
+  void renderItems();
 
   void display();
 

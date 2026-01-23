@@ -24,6 +24,9 @@ void Render::setBomba(Bomba *b) {
 void Render::setStanza(Stanza *r) {
     room = r;
 }
+void Render::setPoints(Points *p) {
+    points = p;
+}
 
 
 
@@ -74,10 +77,24 @@ void Render::renderBomba() {
 
 }
 
+void Render::addItem(Item *i) {
+    items.push_back(i);
+}
+
+void Render::renderItems() {
+
+    for (Item* i : items) {
+        Position p = i->getPosition();
+        mvwaddch(win, p.y + 1, p.x + 1, i->getCharacter());
+    }
+}
+
 void Render::display() {
 
     box(win, 0, 0);
     mvwprintw(win,0,10, "Vita: %d", player->getVita());
+    mvwprintw(win,0,20, "Punti: %d", points->getPoints());
+
     for (int i = 0; i < room->getStanzaY(); i++) {
         for (int j = 0; j < room->getStanzaX(); j++) {
             mvwaddch(win, i + 1, j + 1, room->isMuro(i, j) ? '#' : room->isMuroInd(i, j) ? '+' : '.');
@@ -85,6 +102,7 @@ void Render::display() {
     }
 
     renderPlayer();
+    renderItems();
     renderBomba();
 
 }

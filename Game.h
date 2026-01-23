@@ -8,6 +8,9 @@
 #include "Enemy.h"
 #include "Bomba.h"
 #include "Render.h"
+#include "Points.h"
+#include "Item.h"
+#include <vector>
 
 
 constexpr int MAX_NEMICI = 5;
@@ -19,11 +22,15 @@ class Game {
         Player* player;
         Render *render;
         Bomba* bomb;
+        Points* points;
+        std::vector<Item*> items;
 
 
         int damageCooldown = 2;
         Enemy** nemici;
         int numNemici;
+
+        int deadEnemies = 0;
 
 
 
@@ -36,21 +43,25 @@ class Game {
     Stanza* getRoom();
     Render* getRender();
     Enemy** getEnemies();
+    Points* getPoints();
     int getNumNemici();
+
 
     void update();
 
-    void enemyDamage();
-    void bombDamagePlayer();
-
-    void damagePlayer();
     void bombDamage();
 
     void checkEnemyLife();
 
     void addEnemy(Position p);
 
+    void addPoints();
+
     void renderGame();
+
+    int nemiciMorti();
+
+    void dropItem(Position p);
 
 
 

@@ -4,6 +4,7 @@
 #include <ctime>
 #include "Stanza.h"
 #include "Globals.h"
+#include <vector>
 
 
 
@@ -17,6 +18,8 @@ class Bomba {
      time_t explodedTime;
      int rangeExplosion = 1;
      Stanza* room;
+     int muriDistrutti = 0;
+     std::vector<Position> lastBrokenMuro;
 
 
     public:
@@ -29,6 +32,9 @@ class Bomba {
         char getCharacter();
         int getRangeExplosion();
 
+        std::vector<Position> getLastBrokenMuro();
+        void resetLastBrokenMuro();
+
         void resetBomb();
 
         bool isDropped();
@@ -40,9 +46,14 @@ class Bomba {
         void setExploded(bool e);
         bool isExploded();
 
+        int muriEsplosi();
+
+
         void drop(Position p);
 
         void update();
+
+
 
 
 };

@@ -7,7 +7,6 @@
 #include "Render.h"
 #include <cstring>
 #include "Game.h"
-
 using namespace std;
 
 
@@ -38,6 +37,7 @@ int main() {
 
 
     int input;
+
 
     g->getRender()->display();
 

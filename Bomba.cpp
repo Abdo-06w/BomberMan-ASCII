@@ -47,11 +47,11 @@ bool Bomba::isExploded() {
     return exploded;
 }
 
+
 void Bomba::resetBomb() {
     exploded = false;
     bombPosition.y = -1;
     bombPosition.x = -1;
-
 }
 
 void Bomba::drop(Position p) {
@@ -85,8 +85,9 @@ void Bomba::explode() {
     Position b = bombPosition;
     int newY,newX;
 
-    if (room->isMuro(b.y, b.x))
+    if (room->isMuro(b.y, b.x)) {
         room->breakWall(b.y, b.x);
+    }
 
     for (int i = 0; i < 4; i++) {
 
@@ -98,10 +99,32 @@ void Bomba::explode() {
             if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX() || room->isMuroInd(newY, newX))
                 break;
 
-            if (room->isMuro(newY,newX))room->breakWall(newY,newX);
+            if (room->isMuro(newY,newX)) {
+                room->breakWall(newY,newX);
+                muriDistrutti++;
+                lastBrokenMuro.push_back({newY, newX});
+            }
 
         }
 
     }
 }
+int Bomba::muriEsplosi() {
+    int tmp = muriDistrutti;
+    muriDistrutti = 0;
+    return tmp;
+}
+
+std::vector<Position> Bomba::getLastBrokenMuro() {
+    return lastBrokenMuro;
+}
+
+void Bomba::resetLastBrokenMuro() {
+    lastBrokenMuro.clear();
+}
+
+
+
+
+
 
