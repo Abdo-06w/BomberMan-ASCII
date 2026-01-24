@@ -8,11 +8,11 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Points.h"
-#include <vector>
 
 
 
 
+class Game;
 
 class Render {
 protected:
@@ -23,9 +23,6 @@ protected:
   Position maxPos;
   Bomba* bomba;
   Points* points;
-  std::vector<Item*> items;
-
-
 
 
 public:
@@ -43,8 +40,7 @@ public:
   void renderExplosion();
   void renderBomba();
 
-  void addItem(Item *i);
-  void renderItems();
+  void renderItems(Item*i);
 
   void display();
 

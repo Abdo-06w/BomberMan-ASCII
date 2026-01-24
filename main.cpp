@@ -45,13 +45,14 @@ int main() {
 
     do{
 
-        g->update();
-
 
         input = wgetch(test);
         if (input != ERR) {
             g->getPlayer()->handleInput(input);
         }
+
+        g->update();
+
 
 
         werase(test);

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Stanza.h"
 #include "Bomba.h"
+#include "Game.h"
 
 
 Render::Render(WINDOW *w,Stanza *s) {
@@ -27,7 +28,6 @@ void Render::setStanza(Stanza *r) {
 void Render::setPoints(Points *p) {
     points = p;
 }
-
 
 
 void Render::renderPlayer() {
@@ -67,8 +67,6 @@ void Render::renderExplosion() {
     }
 }
 
-
-
 void Render::renderBomba() {
     if (bomba->isDropped())
         mvwaddch(win, bomba->getPosition().y + 1, bomba->getPosition().x + 1, '*');
@@ -77,16 +75,12 @@ void Render::renderBomba() {
 
 }
 
-void Render::addItem(Item *i) {
-    items.push_back(i);
-}
+void Render::renderItems(Item* item) {
 
-void Render::renderItems() {
-
-    for (Item* i : items) {
-        Position p = i->getPosition();
-        mvwaddch(win, p.y + 1, p.x + 1, i->getCharacter());
-    }
+        if (!item->isCollected()) {
+            Position p = item->getPosition();
+            mvwaddch(win, p.y + 1, p.x + 1, item->getCharacter());
+        }
 }
 
 void Render::display() {
@@ -94,15 +88,14 @@ void Render::display() {
     box(win, 0, 0);
     mvwprintw(win,0,10, "Vita: %d", player->getVita());
     mvwprintw(win,0,20, "Punti: %d", points->getPoints());
+    mvwprintw(win,maxPos.y-1, 10, "Range: x%d", player->getRangeMultiplier());
+    mvwprintw(win,maxPos.y-1, 20, "Damage: x%d", player->getDamageMultiplier());
+
 
     for (int i = 0; i < room->getStanzaY(); i++) {
         for (int j = 0; j < room->getStanzaX(); j++) {
             mvwaddch(win, i + 1, j + 1, room->isMuro(i, j) ? '#' : room->isMuroInd(i, j) ? '+' : '.');
         }
     }
-
-    renderPlayer();
-    renderItems();
-    renderBomba();
 
 }

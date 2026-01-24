@@ -22,6 +22,9 @@ Game::Game(WINDOW *win) {
     render->setStanza(room);
     render->setPoints(points);
 
+    items = new Item*[MAX_ITEMS];
+    numItems = 0;
+
 
 }
 
@@ -32,8 +35,27 @@ Enemy** Game::getEnemies() { return nemici; }
 Render* Game::getRender() { return render; }
 Points* Game::getPoints() { return points; }
 
-int Game::getNumNemici() {
-    return numNemici;
+int Game::getNumNemici() { return numNemici; }
+
+void Game::bombDamage() {
+    for (int i = 0; i < numNemici; i++)
+        nemici[i]->takeBombDamage(bomb, damageCooldown);
+
+    player->takeBombDamage(damageCooldown);
+}
+int Game::nemiciMorti() {
+    int tmp = deadEnemies;
+    deadEnemies = 0;
+    return tmp;
+}
+void Game::addPoints() {
+    int muri = bomb->muriEsplosi();
+    if (muri > 0)
+        points->addPoints(100*muri);
+
+    int dead = nemiciMorti();
+    if (dead > 0)
+        points->addPoints(1000*dead);
 }
 
 void Game::addEnemy(Position p) {
@@ -42,9 +64,7 @@ void Game::addEnemy(Position p) {
 
     nemici[numNemici] = new Enemy(p, room);
     numNemici++;
-
 }
-
 
 void Game::checkEnemyLife() {
     if (numNemici <= 0)return;
@@ -57,87 +77,101 @@ void Game::checkEnemyLife() {
             numNemici--;
             i--;
             deadEnemies++;
-
         }
     }
-}
-
-void Game::bombDamage() {
-    for (int i = 0; i < numNemici; i++)
-        nemici[i]->takeBombDamage(bomb, damageCooldown);
-
-    player->takeBombDamage(damageCooldown);
-}
-
-int Game::nemiciMorti() {
-    int tmp = deadEnemies;
-    deadEnemies = 0;
-    return tmp;
-}
-
-void Game::addPoints() {
-        int muri = bomb->muriEsplosi();
-        if (muri > 0)
-            points->addPoints(100*muri);
-
-        int dead = nemiciMorti();
-        if (dead > 0)
-            points->addPoints(1000*dead);
 }
 
 void Game::dropItem(Position p) {
 
     int chance = rand() % 100;
 
-    if (chance < 30){
-        Item* i = new Item('o');
-        i->setPosition(p);
-        items.push_back(i);
-        render->addItem(i);
+    if (numItems < MAX_ITEMS && player->getDamageMultiplier() < 4 && chance < 30) {
+        items[numItems] = new Item('D');
+        items[numItems]->setPosition(p);
+        numItems++;
+    }
+
+    if (numItems < MAX_ITEMS && player->getRangeMultiplier() < 3 && chance > 70) {
+        items[numItems] = new Item('R');
+        items[numItems]->setPosition(p);
+        numItems++;
     }
 
 }
 
+void Game::getItem() {
+    Position p = player->getPosition();
+
+    for (int i = 0; i < numItems; i++) {
+
+        if (p.x == items[i]->getPosition().x && p.y == items[i]->getPosition().y) {
+            items[i]->setEffect(player);
+            items[i]->collect();
+            delete items[i];
+            items[i] = items[numItems - 1];
+            numItems--;
+            i--;
+        }
+        else if ((items[i]->getCharacter() == 'D' && player->getDamageMultiplier() >= 4) ||
+                 (items[i]->getCharacter() == 'R' && player->getRangeMultiplier() >= 3)) {
+
+            items[i]->collect();
+            delete items[i];
+            items[i] = items[numItems - 1];
+            numItems--;
+            i--;
+        }
+    }
+}
+
+void Game::resetUpgrade() {
+    player->setRangeMultiplier(1);
+    player->setDamageMultiplier(1);
+}
+
+
 void Game::update() {
 
-     for (int i = 0; i < numNemici; i++) {
+     for (int i = 0; i < numNemici; i++)
             nemici[i]->update();
-        }
 
         bomb->update();
 
         for (int i = 0; i < numNemici; i++)
-        player->takeEnemyDamage(nemici[i]->getPosition(), damageCooldown);
+         player->takeEnemyDamage(nemici[i]->getPosition(), damageCooldown);
 
         bombDamage();
 
         addPoints();
 
-        std::vector<Position> walls = bomb->getLastBrokenMuro();
-
-        for (Position wall : bomb->getLastBrokenMuro())
+        for (int i = 0; i < bomb->getNumBrokenMuro(); i++) {
+            Position wall = bomb->getBrokenMuro(i);
             dropItem(wall);
+        }
 
         bomb->resetLastBrokenMuro();
 
+        getItem();
 
         checkEnemyLife();
 
-
-
+        if (player->takenDamage())
+            resetUpgrade();
 }
 
 void Game::renderGame() {
 
-
     render->display();
 
+    for (int i = 0; i < numItems; i++)
+        render->renderItems(items[i]);
 
-    for (int i = 0; i < numNemici; i++) {
+    render->renderPlayer();
+
+    for (int i = 0; i < numNemici; i++)
         render->renderEnemy(nemici[i]);
-    }
 
-
+    render->renderBomba();
 }
 
 

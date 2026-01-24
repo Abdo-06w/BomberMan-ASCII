@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Bomba.h"
 
 void Entity::setPosition(int y, int x) {
     playerPosition.y = y;
@@ -18,6 +19,6 @@ char Entity::getCharacter() {
 int Entity::getVita() {
     return vita;
 }
-void Entity::decreaseLife() {
-    vita--;
+void Entity::decreaseLifeBomba(Bomba* b) {
+    vita = vita - b->getDamage();
 }

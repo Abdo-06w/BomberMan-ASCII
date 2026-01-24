@@ -9,7 +9,7 @@ Enemy::Enemy(Position p, Stanza *s) {
     playerPosition = p;
     stanza = s;
     character = 'O';
-    vita = 1;
+    vita = 2;
 
 }
 
@@ -59,7 +59,7 @@ void Enemy::takeBombDamage(Bomba* bomb, int damageCooldown) {
     Position p = getPosition();
 
     if (b.y == p.y && b.x == p.x) {
-        decreaseLife();
+        decreaseLifeBomba(bomb);
         lastBombDamageTime = now;
         return;
     }
@@ -69,7 +69,7 @@ void Enemy::takeBombDamage(Bomba* bomb, int damageCooldown) {
             int newY = b.y + directions[i].y * j;
             int newX = b.x + directions[i].x * j;
             if (newY == p.y && newX == p.x) {
-                decreaseLife();
+                decreaseLifeBomba(bomb);
                 lastBombDamageTime = now;
                 return;
             }

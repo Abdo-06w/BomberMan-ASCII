@@ -4,7 +4,9 @@
 #include <ctime>
 #include "Stanza.h"
 #include "Globals.h"
-#include <vector>
+
+constexpr int MAX_BROKEN_WALLS = 100;
+
 
 
 
@@ -16,10 +18,16 @@ class Bomba {
      bool exploded = false;
      time_t start;
      time_t explodedTime;
-     int rangeExplosion = 1;
      Stanza* room;
      int muriDistrutti = 0;
-     std::vector<Position> lastBrokenMuro;
+
+    Position lastBrokenMuro[MAX_BROKEN_WALLS];
+    int numBrokenMuro = 0;
+
+    int baseRange = 1;
+    int baseDamage = 1;
+    int rangeExplosion = 1;
+    int damage = 1;
 
 
     public:
@@ -31,11 +39,17 @@ class Bomba {
         Position getPosition();
         char getCharacter();
         int getRangeExplosion();
-
-        std::vector<Position> getLastBrokenMuro();
         void resetLastBrokenMuro();
 
+        int getNumBrokenMuro();
+        Position getBrokenMuro(int i);
+
         void resetBomb();
+
+        int getDamage();
+        void setStats(int r, int d);
+        int getBaseRange();
+        int getBaseDamage();
 
         bool isDropped();
         void setDropped(bool d);

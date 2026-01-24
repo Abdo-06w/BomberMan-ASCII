@@ -14,13 +14,37 @@ Player::Player(Position p, Bomba* b, Stanza* s) {
 
 }
 
+int Player::getRangeMultiplier() {
+
+    return rangeMultiplier;
+}
+int Player::getDamageMultiplier() {
+
+    return damageMultiplier;
+}
+
+void Player::setRangeMultiplier(int r) {
+
+    rangeMultiplier = r;
+}
+void Player::setDamageMultiplier(int d) {
+
+    damageMultiplier = d;
+}
+
 void Player::droppaBomba() {
     if (bomba->isDropped() || bomba->isExploded())
         return;
 
+    int finalRange = bomba->getBaseRange() * rangeMultiplier;
+    int finalDamage = bomba->getBaseDamage() * damageMultiplier;
+
+    bomba->setStats(finalRange, finalDamage);
+
     bomba->drop(playerPosition);
 
 }
+
 
 
 
@@ -84,7 +108,8 @@ void Player::takeBombDamage(int coolDown) {
 
 
     if (b.y == p.y && b.x == p.x) {
-        decreaseLife();
+        decreaseLifeBomba(bomba);
+        damaged = true;
         lastBombDamageTime = now;
         return;
     }
@@ -99,7 +124,8 @@ void Player::takeBombDamage(int coolDown) {
             newX = b.x + directions[i].x * j ;
 
             if (newY == p.y && newX == p.x) {
-                decreaseLife();
+                decreaseLifeBomba(bomba);
+                damaged = true;
                 lastBombDamageTime = now;
                 return;
             }
@@ -107,6 +133,11 @@ void Player::takeBombDamage(int coolDown) {
     }
 
 }
+
+void Player::decreaseLifeEnemy() {
+    vita = vita - 1;
+}
+
 
 void Player::takeEnemyDamage(Position enemyPos,int coolDown) {
 
@@ -116,10 +147,20 @@ void Player::takeEnemyDamage(Position enemyPos,int coolDown) {
 
     Position p = getPosition();
     if (p.x == enemyPos.x && p.y == enemyPos.y) {
-        decreaseLife();
+        decreaseLifeEnemy();
+        damaged = true;
         lastEnemyDamageTime = now;
     }
 
+}
+
+bool Player::takenDamage() {
+
+    if (damaged) {
+        damaged = false;
+        return true;
+    }
+    return false;
 }
 
 

@@ -15,6 +15,12 @@ class Player : public Entity {
     time_t lastEnemyDamageTime;
     time_t lastBombDamageTime;
 
+    int rangeMultiplier = 1;
+    int damageMultiplier = 1;
+
+    bool damaged = false;
+
+
  public:
 
     Player(Position p ,Bomba* b,Stanza* s);
@@ -33,7 +39,17 @@ class Player : public Entity {
 
     void takeBombDamage(int coolDown);
 
+    void decreaseLifeEnemy();
+
     void takeEnemyDamage(Position enemyPos,int coolDown);
+
+    int getRangeMultiplier();
+    int getDamageMultiplier();
+
+    void setRangeMultiplier(int r);
+    void setDamageMultiplier(int d);
+
+    bool takenDamage();
 
 
 

@@ -25,7 +25,7 @@ public:
     void move();
     void update();
 
-    void takeBombDamage(Bomba* b, int coolDown);
+    void takeBombDamage(Bomba* bomb, int coolDown);
 };
 
 

@@ -15,36 +15,43 @@ void Bomba::setPosition(int y, int x) {
     bombPosition.y = y;
     bombPosition.x = x;
 }
-
 Position Bomba::getPosition() {
     return bombPosition;
 }
-
-
 char Bomba::getCharacter() {
 
     return character;
 }
-
 int Bomba::getRangeExplosion() {
     return rangeExplosion;
 }
-
 bool Bomba::isDropped() {
     return dropped;
 }
-
 void Bomba::setDropped(bool d) {
     dropped = d;
 }
-
 void Bomba::setExploded(bool e) {
     exploded = e;
 }
-
-
 bool Bomba::isExploded() {
     return exploded;
+}
+
+int Bomba::getDamage() {
+    return damage;
+}
+
+void Bomba::setStats(int r, int d) {
+    rangeExplosion = r;
+    damage = d;
+}
+
+int Bomba::getBaseDamage() {
+    return baseDamage;
+}
+int Bomba::getBaseRange() {
+    return baseRange;
 }
 
 
@@ -102,11 +109,11 @@ void Bomba::explode() {
             if (room->isMuro(newY,newX)) {
                 room->breakWall(newY,newX);
                 muriDistrutti++;
-                lastBrokenMuro.push_back({newY, newX});
+                if (numBrokenMuro < MAX_BROKEN_WALLS) {
+                    lastBrokenMuro[numBrokenMuro++] = { newY, newX };
+                }
             }
-
         }
-
     }
 }
 int Bomba::muriEsplosi() {
@@ -115,12 +122,15 @@ int Bomba::muriEsplosi() {
     return tmp;
 }
 
-std::vector<Position> Bomba::getLastBrokenMuro() {
-    return lastBrokenMuro;
+int Bomba::getNumBrokenMuro() {
+    return numBrokenMuro;
 }
 
+Position Bomba::getBrokenMuro(int i) {
+    return lastBrokenMuro[i];
+}
 void Bomba::resetLastBrokenMuro() {
-    lastBrokenMuro.clear();
+    numBrokenMuro = 0;
 }
 
 

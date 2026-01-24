@@ -10,10 +10,10 @@
 #include "Render.h"
 #include "Points.h"
 #include "Item.h"
-#include <vector>
 
 
 constexpr int MAX_NEMICI = 5;
+constexpr int MAX_ITEMS = 10;
 
 class Game {
     protected:
@@ -23,8 +23,9 @@ class Game {
         Render *render;
         Bomba* bomb;
         Points* points;
-        std::vector<Item*> items;
 
+        Item** items;
+        int numItems;
 
         int damageCooldown = 2;
         Enemy** nemici;
@@ -63,7 +64,9 @@ class Game {
 
     void dropItem(Position p);
 
+    void getItem();
 
+    void resetUpgrade();
 
 };
 

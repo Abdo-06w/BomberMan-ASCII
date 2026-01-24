@@ -5,6 +5,8 @@
 #include "Stanza.h"
 #include <ctime>
 
+class Bomba;
+
 
 class Entity {
     protected:
@@ -23,7 +25,7 @@ class Entity {
     char getCharacter();
     int getVita();
 
-    void decreaseLife();
+    void decreaseLifeBomba(Bomba *b);
 
 
 
