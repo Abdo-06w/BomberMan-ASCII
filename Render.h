@@ -8,8 +8,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Points.h"
-
-
+#include "Time.h"
 
 
 class Game;
@@ -23,6 +22,7 @@ protected:
   Position maxPos;
   Bomba* bomba;
   Points* points;
+  Time* time;
 
 
 public:
@@ -33,6 +33,7 @@ public:
   void setBomba(Bomba *b);
   void setStanza(Stanza *r);
   void setPoints(Points *p);
+  void setTime(Time *t);
 
   void renderPlayer();
   void renderEnemy(Enemy* e);
@@ -43,6 +44,8 @@ public:
   void renderItems(Item*i);
 
   void display();
+
+  void renderTime();
 
 
 

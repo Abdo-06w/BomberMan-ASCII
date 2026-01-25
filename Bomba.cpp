@@ -63,6 +63,8 @@ void Bomba::resetBomb() {
 
 void Bomba::drop(Position p) {
 
+    if (room->isPorta(p.y, p.x))return;
+
     bombPosition = p;
     dropped = true;
     exploded = false;
@@ -103,7 +105,8 @@ void Bomba::explode() {
             newY = b.y + directions[i].y * j ;
             newX = b.x + directions[i].x * j ;
 
-            if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX() || room->isMuroInd(newY, newX))
+            if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX()
+                || room->isMuroInd(newY, newX) || room->isPorta(newY, newX))
                 break;
 
             if (room->isMuro(newY,newX)) {

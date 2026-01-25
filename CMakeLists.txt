@@ -27,4 +27,6 @@ add_executable(BomberMan main.cpp
         Points.h
         Item.cpp
         Item.h
+        Time.cpp
+        Time.h
 )

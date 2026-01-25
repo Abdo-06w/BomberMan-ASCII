@@ -4,6 +4,7 @@
 
 
 
+
 Game::Game(WINDOW *win) {
 
 
@@ -14,6 +15,10 @@ Game::Game(WINDOW *win) {
     render = new Render(win,room);
 
 
+    time = new Time();
+    lastTick = steady_clock::now();
+
+
     numNemici = 0;
     nemici = new Enemy*[MAX_NEMICI];
 
@@ -21,6 +26,8 @@ Game::Game(WINDOW *win) {
     render->setPlayer(player);
     render->setStanza(room);
     render->setPoints(points);
+    render->setTime(time);
+
 
     items = new Item*[MAX_ITEMS];
     numItems = 0;
@@ -34,6 +41,7 @@ Stanza* Game::getRoom() { return room; }
 Enemy** Game::getEnemies() { return nemici; }
 Render* Game::getRender() { return render; }
 Points* Game::getPoints() { return points; }
+Time* Game::getTimer() { return time; }
 
 int Game::getNumNemici() { return numNemici; }
 
@@ -130,7 +138,22 @@ void Game::resetUpgrade() {
 }
 
 
+void Game::timer() {
+
+    auto now = steady_clock::now();
+
+    if (duration_cast<seconds>(now - lastTick).count() >= 1) {
+        if (time->getTime() > 0) {
+            time->setTime(time->getTime() - 1);
+        }
+        lastTick = now;
+    }
+
+}
+
 void Game::update() {
+
+     timer();
 
      for (int i = 0; i < numNemici; i++)
             nemici[i]->update();
@@ -166,12 +189,13 @@ void Game::renderGame() {
     for (int i = 0; i < numItems; i++)
         render->renderItems(items[i]);
 
-    render->renderPlayer();
-
     for (int i = 0; i < numNemici; i++)
         render->renderEnemy(nemici[i]);
 
+    render->renderPlayer();
+
     render->renderBomba();
 }
+
 
 

@@ -27,7 +27,7 @@ char Item::getCharacter() {
 void Item::setEffect(Player *p) {
 
     if (character == 'D') {
-        int newMultiplier = p->getDamageMultiplier() * 2;
+        int newMultiplier = p->getDamageMultiplier() + 1;
         p->setDamageMultiplier(std::min(newMultiplier, 4));
     }
     else if (character == 'R') {

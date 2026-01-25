@@ -29,6 +29,8 @@ class Stanza {
 
         void breakWall(int y, int x);
 
+        bool isPorta(int y,int x);
+
 
 
 };

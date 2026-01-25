@@ -10,10 +10,13 @@
 #include "Render.h"
 #include "Points.h"
 #include "Item.h"
+#include "Time.h"
 
 
 constexpr int MAX_NEMICI = 5;
 constexpr int MAX_ITEMS = 10;
+#include <chrono>
+using namespace std::chrono;
 
 class Game {
     protected:
@@ -23,6 +26,9 @@ class Game {
         Render *render;
         Bomba* bomb;
         Points* points;
+
+        Time* time;
+        steady_clock::time_point lastTick;
 
         Item** items;
         int numItems;
@@ -46,6 +52,7 @@ class Game {
     Enemy** getEnemies();
     Points* getPoints();
     int getNumNemici();
+    Time* getTimer();
 
 
     void update();
@@ -67,6 +74,8 @@ class Game {
     void getItem();
 
     void resetUpgrade();
+
+    void timer();
 
 };
 
