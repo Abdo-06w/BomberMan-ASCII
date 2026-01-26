@@ -7,15 +7,17 @@
 #include "Render.h"
 #include <cstring>
 #include "Game.h"
+#include "Classifica.h"
 using namespace std;
 
 
 int main() {
 
     initscr();
+    initGlobals();
     noecho();
     cbreak();
-    curs_set(0);
+    /*curs_set(0);*/
 
     start_color();
     use_default_colors();
@@ -38,39 +40,26 @@ int main() {
         portaBg = COLOR_YELLOW;
     }
 
-
-
-
-
-
     init_pair(1, COLOR_BLACK, COLOR_BLACK);                          // pavimento
     init_pair(2, muroinDistruttibileBg, muroinDistruttibileBg);      // muri indistruttibili
     init_pair(3, muroDistruttibileBg, muroDistruttibileBg);          // muro distruttibili
     init_pair(4, esplosioneBg, esplosioneBg);                        // esplosione
     init_pair(5, COLOR_RED, COLOR_BLACK);                            // nemici
     init_pair(6, COLOR_YELLOW, COLOR_BLACK);                         // items
-    init_pair(7, COLOR_GREEN, COLOR_BLACK);                                    // player
-    init_pair(9, COLOR_RED, COLOR_BLACK);                                      // bomba
+    init_pair(7, COLOR_GREEN, COLOR_BLACK);                          // player
+    init_pair(9, COLOR_RED, COLOR_BLACK);                             // bomba
     init_pair(10, portaBg, portaBg);                                  // porta
 
 
 
-
-    int maxY,maxX;
-    getmaxyx(stdscr, maxY, maxX);
-
-    int startX = (maxX - X_GAME) / 2;
-    int startY = (maxY - Y_GAME) / 2;
-
-
-
-    WINDOW* test = newwin(Y_GAME, X_GAME, startY, startX);
+    WINDOW* mainWin = newwin(Y_GAME, X_GAME, startMainWinY, startMainWinX);
     refresh();
-    wrefresh(test);
+    box(mainWin, 0, 0);
+    wrefresh(mainWin);
 
 
 
-    Game* g = new Game(test);
+    /*Game* g = new Game(test);
     g->addEnemy({4,4});
     g->addEnemy({17,5});
 
@@ -100,13 +89,26 @@ int main() {
         wrefresh(test);
 
 
-    }while (input != 'x');
+    }while (input != 'x');*/
+
+
+    Menu* menu = new Menu(mainWin);
+
+    menu->showMenu();
+
+
+
+
+
+
+
+
+
 
 
 
     getch();
     endwin();
-
 
     return 0;
 }

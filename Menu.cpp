@@ -3,36 +3,28 @@
 #include <cstring>
 #include "Menu.h"
 #include "Globals.h"
+#include "Classifica.h"
 
 using namespace std;
 
 
+Menu::Menu(WINDOW *w) {
+    win = w;
+    classifica = new Classifica(win,this);
+    keypad(win, TRUE);
+}
 
-void mostraMenu() {
+void Menu::drawMenu() {
 
-    int maxY,maxX;
-    getmaxyx(stdscr, maxY, maxX);
-
-    int startX = (maxX - X_GAME) / 2;
-    int startY = (maxY - Y_GAME) / 2;
-
-    if (startX < 0) startX = 0;
-    if (startY < 0) startY = 0;
-
-    WINDOW* menuWin = newwin(Y_GAME, X_GAME, startY, startX);
-    refresh();
-    box(menuWin, 0, 0);
-    wrefresh(menuWin);
+    box(win,0,0);
 
     const char* gameName = "BOMBERMAN ASCII";
     int nameX = (X_GAME - strlen(gameName)) / 2;
     int nameY = 5;
 
-    wattron(menuWin, A_BOLD);
-    mvwprintw(menuWin, nameY, nameX, gameName);
-    wattroff(menuWin, A_BOLD);
-
-    keypad(menuWin, true);
+    wattron(win, A_BOLD);
+    mvwprintw(win, nameY, nameX,"%s", gameName);
+    wattroff(win, A_BOLD);
 
     const char* choices[] = {"Nuova Partita" , "Classifica", "Esci"};
     int n_choices = sizeof(choices)/sizeof(choices[0]);
@@ -43,13 +35,13 @@ void mostraMenu() {
     while (true) {
 
         for (int i = 0; i < n_choices; i++) {
-            if (i == highlight) wattron(menuWin, A_REVERSE);
-            mvwprintw(menuWin, 10 + i * 3, (X_GAME - strlen(choices[i])) / 2, "%s", choices[i]);
-            if (i == highlight) wattroff(menuWin, A_REVERSE);
+            if (i == highlight) wattron(win, A_REVERSE);
+            mvwprintw(win, 10 + i * 3, (X_GAME - strlen(choices[i])) / 2, "%s", choices[i]);
+            if (i == highlight) wattroff(win, A_REVERSE);
         }
-        wrefresh(menuWin);
+        wrefresh(win);
 
-         choice = wgetch(menuWin);
+        choice = wgetch(win);
 
         switch (choice) {
             case KEY_UP:
@@ -64,15 +56,21 @@ void mostraMenu() {
                 break;
         }
 
-        if (choice == 10) {
-            if (strcmp(choices[highlight], "Esci") == 0)break;
-            //....
+        if (choice == 10 || choice == KEY_ENTER) {
+            if (strcmp(choices[highlight], "Classifica") == 0)classifica->showNumInput();
+            if (strcmp(choices[highlight], "Esci") == 0) {
+                endwin();
+                exit(0);
+            }
+
         }
 
     }
+}
 
 
-
-
-
+void Menu::showMenu() {
+    werase(win);
+    drawMenu();
+    wrefresh(win);
 }

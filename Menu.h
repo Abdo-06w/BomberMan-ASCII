@@ -1,6 +1,27 @@
 #ifndef BOMBERMAN_MENU_H
 #define BOMBERMAN_MENU_H
 
-void mostraMenu();
 
+class Classifica;
+
+
+
+class Menu {
+    protected:
+
+     WINDOW* win;
+     Classifica* classifica;
+
+
+    public:
+
+    Menu(WINDOW* w);
+
+    void drawMenu();
+
+    void showMenu();
+
+
+
+};
 #endif
