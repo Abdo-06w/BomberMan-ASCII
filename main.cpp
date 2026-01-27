@@ -8,6 +8,7 @@
 #include <cstring>
 #include "Game.h"
 #include "Classifica.h"
+#include "Mappa.h"
 using namespace std;
 
 
@@ -17,7 +18,7 @@ int main() {
     initGlobals();
     noecho();
     cbreak();
-    /*curs_set(0);*/
+    curs_set(0);
 
     start_color();
     use_default_colors();
@@ -59,42 +60,40 @@ int main() {
 
 
 
-    /*Game* g = new Game(test);
-    g->addEnemy({4,4});
-    g->addEnemy({17,5});
+
+    Mappa* m = new Mappa(mainWin);
+    Game* currentGame = m->getCurrentGame();
 
 
     int input;
 
-
-    g->getRender()->display();
-
-    nodelay(test, TRUE);
+    currentGame->getRender()->display();
+    currentGame->getRender()->renderTime(m);
+    nodelay(mainWin, TRUE);
 
     do{
 
-        if (g->getTimer()->getTime() <= 0)break;
+        if (m->getTimer()->getTime() <= 0)break;
 
-        input = wgetch(test);
+        m->update(currentGame->getPlayer());
+        currentGame = m->getCurrentGame();
+
+        input = wgetch(mainWin);
         if (input != ERR) {
-            g->getPlayer()->handleInput(input);
+            currentGame->getPlayer()->handleInput(input);
         }
 
-        g->update();
+        currentGame->update();
 
 
 
-        werase(test);
-        g->renderGame();
-        wrefresh(test);
+        werase(mainWin);
+        currentGame->renderGame();
+        currentGame->getRender()->renderTime(m);
+        wrefresh(mainWin);
 
 
-    }while (input != 'x');*/
-
-
-    Menu* menu = new Menu(mainWin);
-
-    menu->showMenu();
+    }while (input != 'x');
 
 
 

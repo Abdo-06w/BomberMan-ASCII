@@ -26,11 +26,11 @@ void Enemy::move() {
             newX < 0 || newX >= stanza->getStanzaX())
             return;
 
-        if (stanza->isMuro(newY, newX) || stanza->isMuroInd(newY, newX))
+        if (stanza->isMuro(newY, newX) || stanza->isMuroInd(newY, newX)
+            || stanza->isPortaNext(newY,newX) || stanza->isPortaPrev(newY,newX))
             return;
 
         setPosition(newY, newX);
-
 
 }
 
@@ -45,6 +45,19 @@ void Enemy::update() {
         lastMoveTime = now;
     }
 
+}
+
+int Enemy::getVita() {
+    return vita;
+}
+
+
+void Enemy::setVita(int v) {
+    vita = v;
+}
+
+void Enemy::decreaseLifeBomba(Bomba* b) {
+    vita = vita - b->getDamage();
 }
 
 void Enemy::takeBombDamage(Bomba* bomb, int damageCooldown) {

@@ -8,6 +8,13 @@
 #include "Entity.h"
 
 
+struct PlayerStats {
+    int rangeMultiplier;
+    int damageMultiplier;
+    int vita;
+};
+
+
 class Player : public Entity {
  protected:
 
@@ -15,8 +22,9 @@ class Player : public Entity {
     time_t lastEnemyDamageTime;
     time_t lastBombDamageTime;
 
-    int rangeMultiplier = 1;
-    int damageMultiplier = 1;
+    /*int rangeMultiplier;
+    int damageMultiplier;*/
+    PlayerStats stats;
 
     bool damaged = false;
 
@@ -24,6 +32,10 @@ class Player : public Entity {
  public:
 
     Player(Position p ,Bomba* b,Stanza* s);
+
+    void setStanza(Stanza *s);
+
+    int getVita();
 
     void moveUp();
 
@@ -36,6 +48,8 @@ class Player : public Entity {
     void handleInput(int input);
 
     void droppaBomba();
+
+    void decreaseLifeBomba();
 
     void takeBombDamage(int coolDown);
 
@@ -50,6 +64,11 @@ class Player : public Entity {
     void setDamageMultiplier(int d);
 
     bool takenDamage();
+
+
+    PlayerStats getStats();
+
+    void setStats(int v,int d,int r);
 
 
 

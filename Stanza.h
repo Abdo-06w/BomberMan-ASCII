@@ -4,6 +4,8 @@
 
 #include <curses.h>
 
+#include "Position.h"
+
 class Stanza {
     protected:
         int roomY;
@@ -15,9 +17,7 @@ class Stanza {
 
     public:
 
-        Stanza(WINDOW *win,int y,int x);
-
-        void stampaStanza();
+        Stanza(WINDOW *win,int y,int x,int m[20][40]);
 
         bool isMuro(int y,int x);
 
@@ -29,8 +29,8 @@ class Stanza {
 
         void breakWall(int y, int x);
 
-        bool isPorta(int y,int x);
-
+        bool isPortaNext(int y,int x);
+        bool isPortaPrev(int y,int x);
 
 
 };

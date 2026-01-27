@@ -28,9 +28,7 @@ void Render::setStanza(Stanza *r) {
 void Render::setPoints(Points *p) {
     points = p;
 }
-void Render::setTime(Time *t) {
-    time = t;
-}
+
 
 void Render::renderPlayer() {
 
@@ -67,7 +65,7 @@ void Render::renderExplosion() {
             int newX = b.x + directions[i].x * j;
 
             if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX()
-                || room->isMuroInd(newY, newX) || room->isPorta(newY, newX))
+                || room->isMuroInd(newY, newX) || room->isPortaNext(newY,newX) || room->isPortaPrev(newY,newX))
                 continue;
 
             wattron(win, COLOR_PAIR(4));
@@ -102,9 +100,9 @@ void Render::renderItems(Item* item) {
 
 
 
-void Render::renderTime() {
+void Render::renderTime(Mappa *m) {
 
-    int t = time->getTime();
+    int t = m->getTimer()->getTime();
 
 
     if (t > 0)
@@ -123,12 +121,6 @@ void Render::display() {
     mvwprintw(win,maxPos.y-1, 10, "Range: x%d", player->getRangeMultiplier());
     mvwprintw(win,maxPos.y-1, 20, "Damage: x%d", player->getDamageMultiplier());
 
-    /*for (int i = 0; i < room->getStanzaY(); i++) {
-        for (int j = 0; j < room->getStanzaX(); j++) {
-            mvwaddch(win, i + 1, j + 1, room->isMuro(i, j) ? '#' : room->isMuroInd(i, j) ? '+' : '.');
-        }
-    }*/
-
 
 
     for (int i = 0; i < room->getStanzaY(); i++) {
@@ -145,7 +137,7 @@ void Render::display() {
                 mvwaddch(win, i+1, j+1, ' ');
                 wattroff(win, COLOR_PAIR(3));
             }
-            else if (room->isPorta(i,j)){
+            else if (room->isPortaNext(i,j) || room->isPortaPrev(i,j)){
                 wattron(win, COLOR_PAIR(10));
                 mvwaddch(win, i+1, j+1, ' ');
                 wattroff(win, COLOR_PAIR(10));
@@ -159,7 +151,5 @@ void Render::display() {
 
         }
     }
-
-    renderTime();
 
 }

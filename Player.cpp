@@ -10,34 +10,42 @@ Player::Player(Position p, Bomba* b, Stanza* s) {
     bomba = b;
     stanza = s;
     character = '@';
-    vita = 3;
+    stats.damageMultiplier = 1;
+    stats.rangeMultiplier = 1;
+    stats.vita = 3;
+}
 
+int Player::getVita() {
+    return stats.vita;
+}
+
+void Player::setStanza(Stanza* s) {
+    stanza = s;
 }
 
 int Player::getRangeMultiplier() {
-
-    return rangeMultiplier;
+    return stats.rangeMultiplier;
 }
 int Player::getDamageMultiplier() {
 
-    return damageMultiplier;
+    return stats.damageMultiplier;
 }
 
 void Player::setRangeMultiplier(int r) {
 
-    rangeMultiplier = r;
+    stats.rangeMultiplier = r;
 }
 void Player::setDamageMultiplier(int d) {
 
-    damageMultiplier = d;
+    stats.damageMultiplier = d;
 }
 
 void Player::droppaBomba() {
     if (bomba->isDropped() || bomba->isExploded())
         return;
 
-    int finalRange = bomba->getBaseRange() * rangeMultiplier;
-    int finalDamage = bomba->getBaseDamage() * damageMultiplier;
+    int finalRange = bomba->getBaseRange() * stats.rangeMultiplier;
+    int finalDamage = bomba->getBaseDamage() * stats.damageMultiplier;
 
     bomba->setStats(finalRange, finalDamage);
 
@@ -92,6 +100,10 @@ void Player::handleInput(int input) {
     }
 }
 
+void Player::decreaseLifeBomba() {
+    stats.vita = stats.vita - bomba->getDamage();
+}
+
 void Player::takeBombDamage(int coolDown) {
 
     if (!bomba->isExploded())return;
@@ -108,7 +120,7 @@ void Player::takeBombDamage(int coolDown) {
 
 
     if (b.y == p.y && b.x == p.x) {
-        decreaseLifeBomba(bomba);
+        decreaseLifeBomba();
         damaged = true;
         lastBombDamageTime = now;
         return;
@@ -124,7 +136,7 @@ void Player::takeBombDamage(int coolDown) {
             newX = b.x + directions[i].x * j ;
 
             if (newY == p.y && newX == p.x) {
-                decreaseLifeBomba(bomba);
+                decreaseLifeBomba();
                 damaged = true;
                 lastBombDamageTime = now;
                 return;
@@ -135,7 +147,7 @@ void Player::takeBombDamage(int coolDown) {
 }
 
 void Player::decreaseLifeEnemy() {
-    vita = vita - 1;
+    stats.vita--;
 }
 
 
@@ -163,6 +175,16 @@ bool Player::takenDamage() {
     return false;
 }
 
+PlayerStats Player::getStats() {
+    return stats;
+}
+
+void Player::setStats(int v,int d,int r) {
+    stats.vita = v;
+    stats.damageMultiplier = d;
+    stats.rangeMultiplier = r ;
+
+}
 
 
 

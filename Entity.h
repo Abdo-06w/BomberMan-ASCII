@@ -13,19 +13,22 @@ class Entity {
     Position playerPosition;
     char character;
     Stanza* stanza;
-    int vita;
 
 
     public:
 
     void setPosition(int y, int x);
-    void setVita(int v);
+
 
     Position getPosition();
     char getCharacter();
+
+    /*void setVita(int v);
+
+
     int getVita();
 
-    void decreaseLifeBomba(Bomba *b);
+    void decreaseLifeBomba(Bomba *b);*/
 
 
 

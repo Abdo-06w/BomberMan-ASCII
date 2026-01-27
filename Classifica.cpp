@@ -109,7 +109,7 @@ void Classifica::drawTopPlayers() {
         int x = 10;
         int y = 7;
         wattron(win, A_UNDERLINE);
-        mvwprintw(win, y, x, "La classifica è vuota!");
+        mvwprintw(win, y, x, "La classifica e' vuota!");
         wattroff(win, A_UNDERLINE);
 
     }else {

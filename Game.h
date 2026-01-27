@@ -25,10 +25,8 @@ class Game {
         Player* player;
         Render *render;
         Bomba* bomb;
-        Points* points;
 
-        Time* time;
-        steady_clock::time_point lastTick;
+        Points* points;
 
         Item** items;
         int numItems;
@@ -43,7 +41,7 @@ class Game {
 
     public:
 
-    Game(WINDOW* w);
+    Game(WINDOW* w,Stanza* r,Points* p);
 
     Player* getPlayer();
     Bomba* getBomba();
@@ -52,8 +50,6 @@ class Game {
     Enemy** getEnemies();
     Points* getPoints();
     int getNumNemici();
-    Time* getTimer();
-
 
     void update();
 
@@ -74,8 +70,6 @@ class Game {
     void getItem();
 
     void resetUpgrade();
-
-    void timer();
 
 };
 
