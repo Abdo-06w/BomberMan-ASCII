@@ -1,6 +1,11 @@
 #include "Mappa.h"
 #include "Game.h"
 
+Maps::~Maps() {
+    delete livello;
+}
+
+
 int lvl1[20][40] = {
     {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
     {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
@@ -139,6 +144,7 @@ Mappa::Mappa(WINDOW* win) {
     map4->next = map5;
 
     map5->prev = map4;
+
     current = map1;
 
     points = new Points();
@@ -154,22 +160,22 @@ Mappa::Mappa(WINDOW* win) {
     map3->game = new Game(win, room3,points);
     map3->game->addEnemy({2,2});
     map3->game->addEnemy({3,3});
-    map3->game->addEnemy({5,5});
+    map3->game->addEnemy({4,4});
 
 
     map4->game = new Game(win, room4,points);
     map4->game->addEnemy({2,2});
     map4->game->addEnemy({3,3});
+    map4->game->addEnemy({4,4});
     map4->game->addEnemy({5,5});
-    map4->game->addEnemy({7,7});
 
 
     map5->game = new Game(win, room5,points);
     map5->game->addEnemy({2,2});
     map5->game->addEnemy({3,3});
+    map5->game->addEnemy({4,4});
     map5->game->addEnemy({5,5});
-    map5->game->addEnemy({7,7});
-    map5->game->addEnemy({10,10});
+    map5->game->addEnemy({6,6});
 
 
     time = new Time();
@@ -185,7 +191,13 @@ Game* Mappa::getCurrentGame() {
 }
 
 void Mappa::nextRoom() {
-    if (current->next == nullptr) return;
+    int x = current->livello->getStanzaX();
+    int y = current->livello->getStanzaY();
+
+    if (current->next == NULL) {
+        current->game->getPlayer()->setPosition(y-2,x-2);
+        return;
+    }
 
     int v,d,r;
 
@@ -201,7 +213,10 @@ void Mappa::nextRoom() {
 }
 
 void Mappa::prevRoom() {
-    if (current->prev == nullptr) return;
+    if (current->prev == NULL) {
+        current->game->getPlayer()->setPosition(1,1);
+        return;
+    }
 
     int v,d,r;
 
@@ -236,20 +251,133 @@ void Mappa::timer() {
 
 }
 
+void Mappa::delRoom() {
+    Position pos = current->game->getPlayer()->getPosition();
+
+    int v,d,r;
+
+    v = current->game->getPlayer()->getStats().vita;
+    d = current->game->getPlayer()->getStats().damageMultiplier;
+    r = current->game->getPlayer()->getStats().rangeMultiplier;
+
+    int x = current->livello->getStanzaX();
+    int y = current->livello->getStanzaY();
+
+    pMap tmp;
+
+    if (current->livello->isPortaNext(pos.y,pos.x)) {
+
+        if (current->prev == NULL) {
+            tmp = current->next;
+
+            delete current;
+            current = tmp;
+            current->prev = NULL;
+        }else {
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+            tmp = current->next;
+
+            delete current;
+            current = tmp;
+        }
+        current->game->getPlayer()->setStats(v, d, r);
+        current->game->getPlayer()->setPosition(1,1);
+
+    }else if (current->livello->isPortaPrev(pos.y,pos.x)) {
+
+        if (current->next == NULL) {
+            tmp = current->prev;
+
+            delete current;
+            current = tmp;
+            current->next = NULL;
+        } else {
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+            tmp = current->prev;
+
+            delete current;
+            current = tmp;
+        }
+        current->game->getPlayer()->setStats(v, d, r);
+        current->game->getPlayer()->setPosition(y-2,x-2);
+    }
+
+    /*if (current->prev == NULL) {
+        tmp = current->next;
+
+        delete current->game;
+        delete current->livello;
+        delete current;
+        current = tmp;
+        current->prev = NULL;
+        current->game->getPlayer()->setStats(v, d, r);
+        current->game->getPlayer()->setPosition(1,1);
+
+    }
+    else if (current->next == NULL) {
+        tmp = current->prev;
+        delete current->game;
+        delete current->livello;
+        delete current;
+        current = tmp;
+        current->next = NULL;
+        current->game->getPlayer()->setStats(v, d, r);
+        current->game->getPlayer()->setPosition(y-2,x-2);
+    }
+    else {
+
+        current->prev->next = current->next;
+        current->next->prev = current->prev;
+        tmp = current->next;
+        delete current->game;
+        delete current->livello;
+        delete current;
+        current = NULL;
+        current = tmp;
+        current->game->getPlayer()->setPosition(1,1);
+
+    }*/
+
+    if (current != NULL) {
+
+        if (current->prev == NULL)current->livello->delPortaPrev();
+        if (current->next == NULL)current->livello->delPortaNext();
+
+    }
+
+
+
+
+
+
+}
+
 void Mappa::update(Player* p) {
+
+
 
     timer();
 
     Position pos = p->getPosition();
 
+    if (current->game->getNumNemici() <= 0) {
+        delRoom();
+
+        return;
+    }
+
     if (current->livello->isPortaNext(pos.y,pos.x)){
         nextRoom();
-
+        return;
     }
     if (current->livello->isPortaPrev(pos.y,pos.x)) {
         prevRoom();
+        return;
     }
 
 }
+
 
 

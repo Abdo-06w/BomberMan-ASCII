@@ -9,10 +9,7 @@ Game::Game(WINDOW *win,Stanza* r,Points* p) {
     player = new Player({1,1},bomb,room);
     render = new Render(win,room);
 
-    /*points = new Points();*/
     points = p;
-
-
 
     numNemici = 0;
     nemici = new Enemy*[MAX_NEMICI];
@@ -172,6 +169,30 @@ void Game::renderGame() {
     render->renderPlayer();
 
     render->renderBomba();
+}
+
+
+Game::~Game() {
+
+    for (int i = 0; i < numItems; i++) {
+        delete nemici[i];
+        nemici[i] = NULL;
+    }
+
+    delete player;
+    player = NULL;
+
+    delete bomb;
+    bomb = NULL;
+
+    delete render;
+    render = NULL;
+
+    for (int i = 0; i < numItems; i++) {
+        delete items[i];
+        items[i] = NULL;
+    }
+
 }
 
 

@@ -3,7 +3,6 @@
 #include "Stanza.h"
 #include "Player.h"
 #include <chrono>
-
 #include "Points.h"
 using namespace std::chrono;
 
@@ -15,6 +14,7 @@ struct Maps {
     Maps* prev;
     Maps* next;
 
+    ~Maps();
 };
 typedef Maps *pMap;
 
@@ -51,6 +51,9 @@ class Mappa {
     Time* getTimer();
 
     void nextRoom();
+
+    void delRoom();
+
     void prevRoom();
 
     void update(Player* p);

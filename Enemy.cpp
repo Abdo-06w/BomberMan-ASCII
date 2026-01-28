@@ -9,7 +9,7 @@ Enemy::Enemy(Position p, Stanza *s) {
     playerPosition = p;
     stanza = s;
     character = 'O';
-    vita = 2;
+    vita = 1;
 
 }
 

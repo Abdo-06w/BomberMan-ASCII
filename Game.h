@@ -42,6 +42,8 @@ class Game {
     public:
 
     Game(WINDOW* w,Stanza* r,Points* p);
+    ~Game();
+
 
     Player* getPlayer();
     Bomba* getBomba();
@@ -70,6 +72,7 @@ class Game {
     void getItem();
 
     void resetUpgrade();
+
 
 };
 

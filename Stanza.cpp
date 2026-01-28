@@ -39,7 +39,7 @@ Stanza::Stanza(WINDOW *win,int y,int x,int m[20][40]){
 
     terreno = new int*[roomY];
     for (int i = 0; i < roomY; i++)
-        terreno[i] = new int[roomX];
+        terreno[i] = new int[roomX]{0};
 
     for (int i = 0; i < roomY; i++)
         for (int j = 0; j < roomX; j++)
@@ -73,4 +73,19 @@ bool Stanza::isPortaNext(int y,int x) {
 }
 bool Stanza::isPortaPrev(int y,int x) {
    return terreno[y][x] == 3;
+}
+
+void Stanza::delPortaPrev() {
+
+    for (int i = 0; i < roomY; i++)
+        for (int j = 0; j < roomX; j++)
+            if (terreno[i][j] == 3)terreno[i][j] = 2;
+
+}
+void Stanza::delPortaNext() {
+
+    for (int i = 0; i < roomY; i++)
+        for (int j = 0; j < roomX; j++)
+            if (terreno[i][j] == 4)terreno[i][j] = 2;
+
 }

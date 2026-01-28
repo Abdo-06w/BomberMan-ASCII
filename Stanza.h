@@ -32,6 +32,9 @@ class Stanza {
         bool isPortaNext(int y,int x);
         bool isPortaPrev(int y,int x);
 
+        void delPortaPrev();
+        void delPortaNext();
+
 
 };
 
