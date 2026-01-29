@@ -89,3 +89,25 @@ void Stanza::delPortaNext() {
             if (terreno[i][j] == 4)terreno[i][j] = 2;
 
 }
+
+bool Stanza::isTherePortaNext() {
+
+    for (int i = 0; i < roomY; i++)
+        for (int j = 0; j < roomX; j++)
+            if (terreno[i][j] == 4)return true;
+
+    return false;
+}
+
+bool Stanza::isTherePortaPrev() {
+
+    for (int i = 0; i < roomY; i++)
+        for (int j = 0; j < roomX; j++)
+            if (terreno[i][j] == 3)return true;
+
+    return false;
+
+}
+
+
+

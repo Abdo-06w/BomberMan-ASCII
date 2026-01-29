@@ -14,7 +14,7 @@ Classifica::Classifica(WINDOW *w,Menu* m) {
 }
 
 bool Classifica::isNumValid() {
-    return  (numBestPlayers >= 0 && numBestPlayers <= 9999);
+    return  (numBestPlayers != -1 && numBestPlayers >= 0 && numBestPlayers <= 9999);
 }
 
 
@@ -30,7 +30,8 @@ void Classifica::addPlayer(const char* name, int score) {
 
     if (numCurrPlayers < 100) {
         giocatore p = new Giocatore;
-        p->name = name;
+        p->name = new char[strlen(name) + 1];
+        strcpy((char*)p->name, name);
         p->score = score;
         players[numCurrPlayers] = p;
         numCurrPlayers++;
@@ -158,12 +159,14 @@ void Classifica::showNumInput() {
         noecho();
         int ch;
         numBestPlayers = 0;
+        bool hasInput = false;
 
         while ((ch = wgetch(win)) != '\n') {
             if (numBestPlayers <= 9999 && ch >= '0' && ch <= '9') {
                 numBestPlayers = numBestPlayers * 10 + (ch - '0');
                 waddch(win, ch);
                 wrefresh(win);
+                hasInput = true;
             }
             if (ch == KEY_BACKSPACE || ch == 127) {
                 if (numBestPlayers > 0) {
@@ -174,12 +177,13 @@ void Classifica::showNumInput() {
                     wmove(win, cy, cx - 1);
                     wrefresh(win);
                 }
+                if (numBestPlayers == 0) hasInput = false;
             }
         }
 
         echo();
 
-        if (isNumValid()) {
+        if (hasInput && isNumValid()) {
             valid = true;
         } else {
             mvwprintw(win, y + 2, x - 2, "Numero non valido, riprova!");

@@ -9,6 +9,8 @@
 #include "Game.h"
 #include "Classifica.h"
 #include "Mappa.h"
+
+#include "GameManager.h"
 using namespace std;
 
 
@@ -58,52 +60,9 @@ int main() {
     box(mainWin, 0, 0);
     wrefresh(mainWin);
 
+    Menu*m = new Menu(mainWin);
 
-
-
-    Mappa* m = new Mappa(mainWin);
-    Game* currentGame = m->getCurrentGame();
-
-
-    int input;
-
-    currentGame->getRender()->display();
-    currentGame->getRender()->renderTime(m);
-    nodelay(mainWin, TRUE);
-
-    do{
-
-        if (m->getTimer()->getTime() <= 0)break;
-
-        m->update(currentGame->getPlayer());
-        currentGame = m->getCurrentGame();
-
-        input = wgetch(mainWin);
-        if (input != ERR) {
-            currentGame->getPlayer()->handleInput(input);
-        }
-
-        currentGame->update();
-
-
-
-        werase(mainWin);
-        currentGame->renderGame();
-        currentGame->getRender()->renderTime(m);
-        wrefresh(mainWin);
-
-
-    }while (input != 'x');
-
-
-
-
-
-
-
-
-
-
+    m->showMenu();
 
 
     getch();
@@ -112,6 +71,3 @@ int main() {
     return 0;
 }
 
-
-// g++ *.cpp -o bomber -lpdcurses
-// g++ *.cpp -o bomber -lncurses

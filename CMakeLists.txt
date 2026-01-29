@@ -33,4 +33,6 @@ add_executable(BomberMan main.cpp
         Classifica.h
         Mappa.cpp
         Mappa.h
+        GameManager.cpp
+        GameManager.h
 )

@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "Globals.h"
 #include "Classifica.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -11,10 +12,21 @@ using namespace std;
 Menu::Menu(WINDOW *w) {
     win = w;
     classifica = new Classifica(win,this);
+    gameManager = new GameManager(win,this);
     keypad(win, TRUE);
 }
 
+Classifica* Menu::getClassifica() {
+    return classifica;
+}
+
+GameManager* Menu::getGameManager() {
+    return gameManager;
+}
+
+
 void Menu::drawMenu() {
+    noecho();
 
     box(win,0,0);
 
@@ -57,6 +69,7 @@ void Menu::drawMenu() {
         }
 
         if (choice == 10 || choice == KEY_ENTER) {
+            if (strcmp(choices[highlight], "Nuova Partita") == 0)gameManager->enterName();
             if (strcmp(choices[highlight], "Classifica") == 0)classifica->showNumInput();
             if (strcmp(choices[highlight], "Esci") == 0) {
                 endwin();

@@ -160,20 +160,20 @@ Mappa::Mappa(WINDOW* win) {
     map3->game = new Game(win, room3,points);
     map3->game->addEnemy({2,2});
     map3->game->addEnemy({3,3});
-    map3->game->addEnemy({4,4});
+    map3->game->addEnemy({4,2});
 
 
     map4->game = new Game(win, room4,points);
     map4->game->addEnemy({2,2});
     map4->game->addEnemy({3,3});
-    map4->game->addEnemy({4,4});
+    map4->game->addEnemy({4,2});
     map4->game->addEnemy({5,5});
 
 
     map5->game = new Game(win, room5,points);
     map5->game->addEnemy({2,2});
     map5->game->addEnemy({3,3});
-    map5->game->addEnemy({4,4});
+    map5->game->addEnemy({4,2});
     map5->game->addEnemy({5,5});
     map5->game->addEnemy({6,6});
 
@@ -189,6 +189,10 @@ Stanza* Mappa::getCurrentRoom() {
 Game* Mappa::getCurrentGame() {
     return current->game;
 }
+Points *Mappa::score() {
+    return points;
+}
+
 
 void Mappa::nextRoom() {
     int x = current->livello->getStanzaX();
@@ -304,42 +308,6 @@ void Mappa::delRoom() {
         current->game->getPlayer()->setPosition(y-2,x-2);
     }
 
-    /*if (current->prev == NULL) {
-        tmp = current->next;
-
-        delete current->game;
-        delete current->livello;
-        delete current;
-        current = tmp;
-        current->prev = NULL;
-        current->game->getPlayer()->setStats(v, d, r);
-        current->game->getPlayer()->setPosition(1,1);
-
-    }
-    else if (current->next == NULL) {
-        tmp = current->prev;
-        delete current->game;
-        delete current->livello;
-        delete current;
-        current = tmp;
-        current->next = NULL;
-        current->game->getPlayer()->setStats(v, d, r);
-        current->game->getPlayer()->setPosition(y-2,x-2);
-    }
-    else {
-
-        current->prev->next = current->next;
-        current->next->prev = current->prev;
-        tmp = current->next;
-        delete current->game;
-        delete current->livello;
-        delete current;
-        current = NULL;
-        current = tmp;
-        current->game->getPlayer()->setPosition(1,1);
-
-    }*/
-
     if (current != NULL) {
 
         if (current->prev == NULL)current->livello->delPortaPrev();
@@ -348,23 +316,17 @@ void Mappa::delRoom() {
     }
 
 
-
-
-
-
 }
 
-void Mappa::update(Player* p) {
-
+void Mappa::update() {
 
 
     timer();
 
-    Position pos = p->getPosition();
+    Position pos = current->game->getPlayer()->getPosition();
 
     if (current->game->getNumNemici() <= 0) {
         delRoom();
-
         return;
     }
 
@@ -377,7 +339,49 @@ void Mappa::update(Player* p) {
         return;
     }
 
+
 }
 
 
+bool Mappa::getHasWon() {
+    return won;
+}
 
+bool Mappa::endGame() {
+
+    if (getTimer()->getTime() <= 0 || current->game->getPlayer()->getVita() <= 0) {
+        won = false;
+        return true;
+    }
+
+    bool noNemici = current->game->getNumNemici() <= 0;
+    bool noPorta = !current->livello->isTherePortaNext() && !current->livello->isTherePortaPrev();
+    if (noNemici && noPorta) {
+        current->game->update();
+        napms(30);
+        won = true;
+        return true;
+    }
+
+    return false;
+}
+
+
+Mappa::~Mappa() {
+
+    delete points;
+    points = NULL;
+
+    delete time;
+    time = NULL;
+
+    while (current && current->prev != NULL)current = current->prev;
+
+    while (current) {
+        Maps* tmp = current->next;
+        delete current;
+        current = tmp;
+    }
+    current = NULL;
+
+}

@@ -40,6 +40,8 @@ class Mappa {
     Time* time;
     steady_clock::time_point lastTick;
 
+    bool won = false;
+
 
     public:
 
@@ -50,15 +52,25 @@ class Mappa {
 
     Time* getTimer();
 
+    Points* score();
+
     void nextRoom();
 
     void delRoom();
 
     void prevRoom();
 
-    void update(Player* p);
+    void update();
 
     void timer();
+
+    bool getHasWon();
+
+    bool endGame();
+
+
+    ~Mappa();
+
 
 
 
