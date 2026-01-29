@@ -3,16 +3,9 @@
 #include "Globals.h"
 #include "Menu.h"
 #include "Player.h"
-#include "Stanza.h"
-#include "Render.h"
 #include <cstring>
-#include "Game.h"
-#include "Classifica.h"
-#include "Mappa.h"
 
-#include "GameManager.h"
 using namespace std;
-
 
 int main() {
 

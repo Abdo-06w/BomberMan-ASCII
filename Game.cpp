@@ -49,11 +49,11 @@ int Game::nemiciMorti() {
 void Game::addPoints() {
     int muri = bomb->muriEsplosi();
     if (muri > 0)
-        points->addPoints(100*muri);
+        points->addPoints(10*muri);
 
     int dead = nemiciMorti();
     if (dead > 0)
-        points->addPoints(1000*dead);
+        points->addPoints(100*dead);
 }
 
 void Game::addEnemy(Position p) {

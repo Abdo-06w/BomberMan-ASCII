@@ -1,8 +1,9 @@
 #include "Classifica.h"
 #include "Globals.h"
 #include <cstring>
-
 #include "Menu.h"
+#include "fstream"
+using namespace std;
 
 
 Classifica::Classifica(WINDOW *w,Menu* m) {
@@ -168,7 +169,7 @@ void Classifica::showNumInput() {
                 wrefresh(win);
                 hasInput = true;
             }
-            if (ch == KEY_BACKSPACE || ch == 127) {
+            if (ch == KEY_BACKSPACE || ch == 127 || ch == 8) {
                 if (numBestPlayers > 0) {
                     numBestPlayers /= 10;
                     int cx, cy;
@@ -192,6 +193,45 @@ void Classifica::showNumInput() {
         }
     }
     showClassifica();
+}
+
+
+void Classifica::saveALLPlayersToFile() {
+
+    ofstream file("classifica.txt", ios::trunc);
+    if (!file.is_open()) return;
+
+    for (int i = 0; i < numCurrPlayers; i++) {
+        file << players[i]->name << " " << players[i]->score << "\n";
+    }
+
+    file.close();
+}
+
+
+void Classifica::loadClassifica() {
+    ifstream file("classifica.txt");
+    if (!file.is_open()) return;
+
+    char name[13];
+    int score;
+
+    for (int i = 0; i < numCurrPlayers; i++) {
+        delete[] players[i]->name;
+        delete players[i];
+    }
+    numCurrPlayers = 0;
+
+    while (file >> name >> score) {
+        giocatore p = new Giocatore;
+        p->name = new char[strlen(name) + 1];
+        strcpy((char*)p->name, name);
+        p->score = score;
+        players[numCurrPlayers] = p;
+        numCurrPlayers++;
+    }
+
+    file.close();
 }
 
 

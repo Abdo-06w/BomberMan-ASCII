@@ -42,6 +42,9 @@ class Classifica {
 
     void showClassifica();
 
+    void loadClassifica();
+    void saveALLPlayersToFile();
+
 
 
 

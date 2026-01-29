@@ -310,8 +310,12 @@ void Mappa::delRoom() {
 
     if (current != NULL) {
 
-        if (current->prev == NULL)current->livello->delPortaPrev();
-        if (current->next == NULL)current->livello->delPortaNext();
+        if (current->prev == NULL) {
+            current->livello->delPortaPrev();
+        }
+        if (current->next == NULL) {
+            current->livello->delPortaNext();
+        }
 
     }
 

@@ -12,6 +12,7 @@ using namespace std;
 Menu::Menu(WINDOW *w) {
     win = w;
     classifica = new Classifica(win,this);
+    classifica->loadClassifica();
     gameManager = new GameManager(win,this);
     keypad(win, TRUE);
 }

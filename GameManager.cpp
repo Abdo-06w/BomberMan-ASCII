@@ -10,11 +10,6 @@ GameManager::GameManager(WINDOW *w,Menu *m) {
     menu = m;
     classifica = m->getClassifica();
 
-
-
-    /*mappa = new Mappa(win);
-    currentGame = mappa->getCurrentGame();*/
-
     keypad(win, true);
 
 }
@@ -68,7 +63,7 @@ void GameManager::enterName() {
                 waddch(win, ch);
                 wrefresh(win);
             }
-            else if (ch == KEY_BACKSPACE || ch == 127) {
+            else if (ch == KEY_BACKSPACE || ch == 127 || ch == 8) {
                 if (pos > 0) {
                     pos--;
                     tmpnome[pos] = '\0';
@@ -212,6 +207,7 @@ void GameManager::startGame() {
     if (vinto) {
         int s = mappa->score()->getPoints();
         classifica->addPlayer(name,s);
+        classifica->saveALLPlayersToFile();
     }
     drawGO();
     nodelay(win, FALSE);
