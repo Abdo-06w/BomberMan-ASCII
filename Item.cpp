@@ -28,7 +28,7 @@ void Item::setEffect(Player *p) {
 
     if (character == 'D') {
         int newMultiplier = p->getDamageMultiplier() + 1;
-        p->setDamageMultiplier(std::min(newMultiplier, 4));
+        p->setDamageMultiplier(std::min(newMultiplier, 3));
     }
     else if (character == 'R') {
         int newMultiplier = p->getRangeMultiplier() + 1;

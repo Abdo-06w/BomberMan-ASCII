@@ -153,12 +153,22 @@ void GameManager::drawGO() {
     mvwprintw(win, 3, ( X_GAME - strlen(title)) / 2 - 1, "%s", title);
     wattroff(win, A_BOLD | A_UNDERLINE);
 
-    mvwprintw(win, 7, ( X_GAME - strlen(name)) / 2 - 1, "%s", name);
+    mvwprintw(win, 7, ( X_GAME - strlen(name)) / 2 - 1, "%s,", name);
 
     const char* result = vinto ? "YOU WIN!" : "YOU LOSE!";
     wattron(win, A_BOLD);
     mvwprintw(win, 10, (X_GAME - strlen(result)) / 2 - 1, "%s", result);
     wattroff(win, A_BOLD);
+
+    if (vinto) {
+
+        const char* punteggio = "Punteggio: ";
+        wattron(win, A_BOLD);
+        mvwprintw(win, 14, (X_GAME - strlen(punteggio)) / 2 - 4, "%s %d", punteggio, score);
+        wattroff(win, A_BOLD);
+
+
+    }
 
     wrefresh(win);
 }
@@ -204,9 +214,12 @@ void GameManager::startGame() {
 
     vinto = mappa->getHasWon();
 
+    score = mappa->score()->getPoints();
+    int t = mappa->getTimer()->getTime();
+    if (t > 0)score += t;
+
     if (vinto) {
-        int s = mappa->score()->getPoints();
-        classifica->addPlayer(name,s);
+        classifica->addPlayer(name,score);
         classifica->saveALLPlayersToFile();
     }
     drawGO();

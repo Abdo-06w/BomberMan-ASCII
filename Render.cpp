@@ -60,13 +60,16 @@ void Render::renderExplosion() {
 
 
     for (int i = 0; i < 4; i++) {
-        for (int j = 1; j <= bomba->getRangeExplosion(); j++) {
+        bool stopDirection = false;
+        for (int j = 1; j <= bomba->getRangeExplosion() && !stopDirection; j++) {
             int newY = b.y + directions[i].y * j;
             int newX = b.x + directions[i].x * j;
 
             if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX()
-                || room->isMuroInd(newY, newX) || room->isPortaNext(newY,newX) || room->isPortaPrev(newY,newX))
+                || room->isMuroInd(newY, newX) || room->isPortaNext(newY,newX) || room->isPortaPrev(newY,newX)) {
+                stopDirection = true;
                 continue;
+            }
 
             wattron(win, COLOR_PAIR(4));
             mvwaddch(win, newY + 1, newX + 1, ' ');
@@ -106,9 +109,9 @@ void Render::renderTime(Mappa *m) {
 
 
     if (t > 0)
-        mvwprintw(win,0,0, "Tempo: %d", t);
+        mvwprintw(win,0,2, "Tempo: %d", t);
     else
-        mvwprintw(win,0,0, "Tempo: %d", 0);
+        mvwprintw(win,0,2, "Tempo: %d", 0);
 
 }
 

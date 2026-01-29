@@ -276,7 +276,6 @@ void Mappa::delRoom() {
 
         if (current->prev == NULL) {
             tmp = current->next;
-
             delete current;
             current = tmp;
             current->prev = NULL;
@@ -284,18 +283,18 @@ void Mappa::delRoom() {
             current->prev->next = current->next;
             current->next->prev = current->prev;
             tmp = current->next;
-
             delete current;
             current = tmp;
         }
-        current->game->getPlayer()->setStats(v, d, r);
+        time->addTime(10);
+        current->game->getPoints()->addPoints(200);
+        current->game->getPlayer()->setStats(v+1, d, r);
         current->game->getPlayer()->setPosition(1,1);
 
     }else if (current->livello->isPortaPrev(pos.y,pos.x)) {
 
         if (current->next == NULL) {
             tmp = current->prev;
-
             delete current;
             current = tmp;
             current->next = NULL;
@@ -303,25 +302,24 @@ void Mappa::delRoom() {
             current->prev->next = current->next;
             current->next->prev = current->prev;
             tmp = current->prev;
-
             delete current;
             current = tmp;
         }
-        current->game->getPlayer()->setStats(v, d, r);
+        time->addTime(10);
+        current->game->getPoints()->addPoints(200);
+        current->game->getPlayer()->setStats(v+1, d, r);
         current->game->getPlayer()->setPosition(y-2,x-2);
     }
 
     if (current != NULL) {
 
-        if (current->prev == NULL) {
+        if (current->prev == NULL)
             current->livello->delPortaPrev();
-        }
-        if (current->next == NULL) {
+
+        if (current->next == NULL)
             current->livello->delPortaNext();
-        }
 
     }
-
 
 }
 
@@ -345,8 +343,6 @@ void Mappa::update() {
         prevRoom();
         return;
     }
-
-
 }
 
 
@@ -357,6 +353,7 @@ bool Mappa::getHasWon() {
 bool Mappa::endGame() {
 
     if (getTimer()->getTime() <= 0 || current->game->getPlayer()->getVita() <= 0) {
+        napms(700);
         won = false;
         return true;
     }
@@ -365,7 +362,7 @@ bool Mappa::endGame() {
     bool noPorta = !current->livello->isTherePortaNext() && !current->livello->isTherePortaPrev();
     if (noNemici && noPorta) {
         current->game->update();
-        napms(30);
+        napms(700);
         won = true;
         return true;
     }

@@ -6,3 +6,6 @@ int Time::getTime() {
 void Time::setTime(int n) {
     time = n;
 }
+void Time::addTime(int n) {
+    time += n;
+}

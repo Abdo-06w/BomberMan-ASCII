@@ -22,8 +22,6 @@ class Player : public Entity {
     time_t lastEnemyDamageTime;
     time_t lastBombDamageTime;
 
-    /*int rangeMultiplier;
-    int damageMultiplier;*/
     PlayerStats stats;
 
     bool damaged = false;

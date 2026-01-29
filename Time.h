@@ -9,7 +9,8 @@ class Time {
     public:
 
         int getTime();
-    void setTime(int n);
+        void setTime(int n);
+        void addTime(int n);
 
 
 

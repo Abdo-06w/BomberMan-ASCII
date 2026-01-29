@@ -180,12 +180,13 @@ PlayerStats Player::getStats() {
 }
 
 void Player::setStats(int v,int d,int r) {
+    if (v > 5)v = 5;
+    if (d > 3)d = 3;
+    if (r > 3)r = 3;
     stats.vita = v;
     stats.damageMultiplier = d;
     stats.rangeMultiplier = r ;
 
 }
-
-
 
 

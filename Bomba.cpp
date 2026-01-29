@@ -99,22 +99,24 @@ void Bomba::explode() {
     }
 
     for (int i = 0; i < 4; i++) {
-
-        for (int j = 1; j <= rangeExplosion; j++) {
+        bool stopDirection = false;
+        for (int j = 1; j <= rangeExplosion && !stopDirection; j++) {
 
             newY = b.y + directions[i].y * j ;
             newX = b.x + directions[i].x * j ;
 
             if (newY < 0 || newY >= room->getStanzaY() || newX < 0 || newX >= room->getStanzaX()
-                || room->isMuroInd(newY, newX) || room->isPortaNext(newY,newX) || room->isPortaPrev(newY,newX))
+                || room->isMuroInd(newY, newX) || room->isPortaNext(newY,newX) || room->isPortaPrev(newY,newX)) {
+                stopDirection = true;
                 break;
+            }
 
             if (room->isMuro(newY,newX)) {
                 room->breakWall(newY,newX);
                 muriDistrutti++;
-                if (numBrokenMuro < MAX_BROKEN_WALLS) {
+                if (numBrokenMuro < MAX_BROKEN_WALLS)
                     lastBrokenMuro[numBrokenMuro++] = { newY, newX };
-                }
+
             }
         }
     }

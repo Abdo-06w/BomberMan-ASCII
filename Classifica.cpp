@@ -107,6 +107,7 @@ void Classifica::btnClassifica() {
 }
 
 void Classifica::drawTopPlayers() {
+    noecho();
     if (numCurrPlayers <= 0) {
         int x = 10;
         int y = 7;

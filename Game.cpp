@@ -83,13 +83,13 @@ void Game::dropItem(Position p) {
 
     int chance = rand() % 100;
 
-    if (numItems < MAX_ITEMS && player->getDamageMultiplier() < 4 && chance < 30) {
+    if (numItems < MAX_ITEMS && player->getDamageMultiplier() < 3 && chance < 16) {
         items[numItems] = new Item('D');
         items[numItems]->setPosition(p);
         numItems++;
     }
 
-    if (numItems < MAX_ITEMS && player->getRangeMultiplier() < 3 && chance > 70) {
+    if (numItems < MAX_ITEMS && player->getRangeMultiplier() < 3 && chance > 84) {
         items[numItems] = new Item('R');
         items[numItems]->setPosition(p);
         numItems++;
@@ -110,7 +110,7 @@ void Game::getItem() {
             numItems--;
             i--;
         }
-        else if ((items[i]->getCharacter() == 'D' && player->getDamageMultiplier() >= 4) ||
+        else if ((items[i]->getCharacter() == 'D' && player->getDamageMultiplier() >= 3) ||
                  (items[i]->getCharacter() == 'R' && player->getRangeMultiplier() >= 3)) {
 
             items[i]->collect();

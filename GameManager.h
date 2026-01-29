@@ -26,10 +26,6 @@ class GameManager {
 
         bool vinto = false;
 
-
-
-
-
     public:
 
     GameManager(WINDOW *w,Menu* m);
