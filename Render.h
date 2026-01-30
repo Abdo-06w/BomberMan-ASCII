@@ -14,8 +14,7 @@
 class Game;
 
 class Render {
-protected:
-
+ protected:
   WINDOW *win;
   Player *player;
   Stanza *room;
@@ -23,34 +22,20 @@ protected:
   Bomba* bomba;
   Points* points;
 
-
-public:
-
+ public:
   Render(WINDOW *w,Stanza *s);
-
   void setPlayer(Player *p);
   void setBomba(Bomba *b);
   void setStanza(Stanza *r);
   void setPoints(Points *p);
-
   void renderPlayer();
   void renderEnemy(Enemy* e);
-
   void renderExplosion();
   void renderBomba();
-
   void renderItems(Item*i);
-
   void display();
-
   void renderTimeandLvl(Mappa *m);
 
-
-
-
-
-
 };
-
 
 #endif //BOMBERMAN_RENDER_H

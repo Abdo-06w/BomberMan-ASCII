@@ -4,11 +4,9 @@
 #include "Menu.h"
 #include "Player.h"
 #include <cstring>
-
 using namespace std;
 
 int main() {
-
     initscr();
     initGlobals();
     noecho();
@@ -22,7 +20,6 @@ int main() {
     int esplosioneBg;
     int muroinDistruttibileBg;
     int portaBg;
-
 
     if (COLORS >= 256) {
         muroDistruttibileBg = 244;          // grigio chiaro
@@ -46,8 +43,6 @@ int main() {
     init_pair(9, COLOR_RED, COLOR_BLACK);                             // bomba
     init_pair(10, portaBg, portaBg);                                  // porta
 
-
-
     WINDOW* mainWin = newwin(Y_GAME, X_GAME, startMainWinY, startMainWinX);
     refresh();
     box(mainWin, 0, 0);
@@ -57,10 +52,8 @@ int main() {
 
     m->showMenu();
 
-
     getch();
     endwin();
 
     return 0;
 }
-

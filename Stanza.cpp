@@ -6,7 +6,6 @@
 using namespace std;
 
 Stanza::Stanza(WINDOW *win,int y,int x,int m[20][40]){
-
     currWindow = win;
     roomX = x;
     roomY = y;
@@ -18,7 +17,6 @@ Stanza::Stanza(WINDOW *win,int y,int x,int m[20][40]){
     for (int i = 0; i < roomY; i++)
         for (int j = 0; j < roomX; j++)
             terreno[i][j] = m[i][j];
-
 }
 
 int Stanza::getStanzaX() {
@@ -28,7 +26,6 @@ int Stanza::getStanzaX() {
 int Stanza::getStanzaY() {
     return roomY;
 }
-
 
 bool Stanza::isMuro(int y,int x) {
     return terreno[y][x] == 1;
@@ -45,6 +42,7 @@ void Stanza::breakWall(int y, int x) {
 bool Stanza::isPortaNext(int y,int x) {
     return terreno[y][x] == 4;
 }
+
 bool Stanza::isPortaPrev(int y,int x) {
    return terreno[y][x] == 3;
 }
@@ -82,6 +80,3 @@ bool Stanza::isTherePortaPrev() {
     return false;
 
 }
-
-
-

@@ -3,51 +3,35 @@
 #include <curses.h>
 #include "Menu.h"
 
-
 struct Giocatore {
     const char* name;
     int score;
 };
 typedef Giocatore *giocatore;
 
-
 class Menu;
 
 class Classifica {
-    protected:
+   protected:
+
     WINDOW* win;
     Menu* menu;
-
     int numBestPlayers;
     int numCurrPlayers = 0;
     giocatore* players;
-
-
-
-
-    public:
+   public:
 
     Classifica(WINDOW *w,Menu* m);
-
     void addPlayer(const char* name, int score);
     void sortPlayers();
-
     void draw();
     void drawTopPlayers();
     void btnClassifica();
-
     void showNumInput();
-
     bool isNumValid();
-
     void showClassifica();
-
     void loadClassifica();
     void saveALLPlayersToFile();
-
-
-
-
 };
 
 

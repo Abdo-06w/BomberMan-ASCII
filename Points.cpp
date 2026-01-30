@@ -1,6 +1,5 @@
 #include "Points.h"
 
-
 void Points::addPoints(int p) {
     points += p;
 }

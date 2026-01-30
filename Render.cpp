@@ -6,32 +6,30 @@
 #include "Bomba.h"
 #include "Game.h"
 
-
 Render::Render(WINDOW *w,Stanza *s) {
-
     win = w;
     room = s;
     keypad(win, true);
     getmaxyx(win, maxPos.y, maxPos.x);
-
 }
 
 void Render::setPlayer(Player *p) {
     player = p;
 }
+
 void Render::setBomba(Bomba *b) {
     bomba = b;
 }
+
 void Render::setStanza(Stanza *r) {
     room = r;
 }
+
 void Render::setPoints(Points *p) {
     points = p;
 }
 
-
 void Render::renderPlayer() {
-
     Position p = player->getPosition();
     wattron(win, COLOR_PAIR(7));
     mvwaddch(win,p.y + 1,p.x + 1,player->getCharacter());
@@ -40,24 +38,19 @@ void Render::renderPlayer() {
 
 void Render::renderEnemy(Enemy* e) {
     if (!e) return;
-
     Position p = e->getPosition();
     wattron(win, COLOR_PAIR(5));
     mvwaddch(win, p.y + 1, p.x + 1, e->getCharacter());
     wattroff(win, COLOR_PAIR(5));
-
 }
 
 void Render::renderExplosion() {
     if (!bomba->isExploded()) return;
 
     Position b = bomba->getPosition();
-
-
     wattron(win, COLOR_PAIR(4));
     mvwaddch(win, b.y + 1, b.x + 1, ' ');
     wattroff(win, COLOR_PAIR(4));
-
 
     for (int i = 0; i < 4; i++) {
         bool stopDirection = false;
@@ -83,12 +76,9 @@ void Render::renderBomba() {
         wattron(win, COLOR_PAIR(9));
         mvwaddch(win, bomba->getPosition().y + 1, bomba->getPosition().x + 1, '*');
         wattroff(win, COLOR_PAIR(9));
-
     }
-
     else if (bomba->isExploded())
         renderExplosion();
-
 }
 
 void Render::renderItems(Item* item) {
@@ -101,12 +91,9 @@ void Render::renderItems(Item* item) {
         }
 }
 
-
-
 void Render::renderTimeandLvl(Mappa *m) {
 
     int t = m->getTimer()->getTime();
-
 
     if (t >= 0)
         mvwprintw(win,0,2, "Tempo: %d", t);
@@ -114,9 +101,7 @@ void Render::renderTimeandLvl(Mappa *m) {
     int l = m->getLivello();
 
     mvwprintw(win,maxPos.y-1,35, "Lv: %d", l);
-
 }
-
 
 void Render::display() {
 
@@ -126,11 +111,8 @@ void Render::display() {
     mvwprintw(win,maxPos.y-1, 10, "Range: x%d", player->getRangeMultiplier());
     mvwprintw(win,maxPos.y-1, 20, "Damage: x%d", player->getDamageMultiplier());
 
-
-
     for (int i = 0; i < room->getStanzaY(); i++) {
         for (int j = 0; j < room->getStanzaX(); j++) {
-
 
             if (room->isMuroInd(i, j)) {
                 wattron(win, COLOR_PAIR(2));
@@ -146,15 +128,12 @@ void Render::display() {
                 wattron(win, COLOR_PAIR(10));
                 mvwaddch(win, i+1, j+1, ' ');
                 wattroff(win, COLOR_PAIR(10));
-
             }
             else {
                 wattron(win, COLOR_PAIR(1));
                 mvwaddch(win, i+1, j+1, ' ');
                 wattroff(win, COLOR_PAIR(1));
             }
-
         }
     }
-
 }

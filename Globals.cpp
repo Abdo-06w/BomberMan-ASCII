@@ -1,7 +1,6 @@
 #include "Globals.h"
 #include <curses.h>
 
-
 int maxTerminalY = 0, maxTerminalX = 0;
 int startMainWinX = 0, startMainWinY = 0;
 

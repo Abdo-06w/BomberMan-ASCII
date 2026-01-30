@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 Menu::Menu(WINDOW *w) {
     win = w;
     classifica = new Classifica(win,this);
@@ -24,7 +23,6 @@ Classifica* Menu::getClassifica() {
 GameManager* Menu::getGameManager() {
     return gameManager;
 }
-
 
 void Menu::drawMenu() {
     noecho();
@@ -46,7 +44,6 @@ void Menu::drawMenu() {
     int choice;
 
     while (true) {
-
         for (int i = 0; i < n_choices; i++) {
             if (i == highlight) wattron(win, A_REVERSE);
             mvwprintw(win, 10 + i * 3, (X_GAME - strlen(choices[i])) / 2, "%s", choices[i]);
@@ -76,12 +73,9 @@ void Menu::drawMenu() {
                 endwin();
                 exit(0);
             }
-
         }
-
     }
 }
-
 
 void Menu::showMenu() {
     werase(win);

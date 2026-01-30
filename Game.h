@@ -20,31 +20,22 @@ using namespace std::chrono;
 
 class Game {
     protected:
-
         Stanza* room;
         Player* player;
         Render *render;
         Bomba* bomb;
-
         Points* points;
-
         Item** items;
         int numItems;
-
         int damageCooldown = 2;
         Enemy** nemici;
         int numNemici;
-
         int deadEnemies = 0;
-
-
 
     public:
 
     Game(WINDOW* w,Stanza* r,Points* p);
     ~Game();
-
-
     Player* getPlayer();
     Bomba* getBomba();
     Stanza* getRoom();
@@ -52,29 +43,16 @@ class Game {
     Enemy** getEnemies();
     Points* getPoints();
     int getNumNemici();
-
     void update(Mappa* m);
-
     void bombDamage();
-
     void checkEnemyLife();
-
     void addEnemy(Position p,int v,char c);
-
     void addPoints();
-
     void renderGame();
-
     int nemiciMorti();
-
     void dropItem(Position p);
-
     void getItem(Mappa* m);
-
     void resetUpgrade();
-
-
-
 };
 
 

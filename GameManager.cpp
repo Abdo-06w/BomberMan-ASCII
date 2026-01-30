@@ -27,8 +27,6 @@ void GameManager::enterName() {
 
     bool valid = false;
 
-
-
     while (!valid) {
         werase(win);
         box(win, 0, 0);
@@ -84,8 +82,6 @@ void GameManager::enterName() {
    startGame();
 }
 
-
-
 void GameManager::btnGameOver() {
     const char* choices[] = {"Nuova Partita" , "Menu"};
     int n_choices = sizeof(choices)/sizeof(choices[0]);
@@ -135,9 +131,6 @@ void GameManager::btnGameOver() {
     }
 }
 
-
-
-
 void GameManager::drawGO() {
     werase(win);
     box(win, 0, 0);
@@ -156,7 +149,6 @@ void GameManager::drawGO() {
         mvwprintw(win, 12, (X_GAME - strlen(punteggio)) / 2 - 4, "%s %d", punteggio, score);
         wattroff(win, A_BOLD);
 
-
     }else {
 
         const char* title = "GAME OVER";
@@ -171,17 +163,10 @@ void GameManager::drawGO() {
     wrefresh(win);
 }
 
-
-
-
-
-
-
 void GameManager::startGame() {
 
     mappa = new Mappa(win);
     currentGame = mappa->getCurrentGame();
-
 
     currentGame->getRender()->display();
     currentGame->getRender()->renderTimeandLvl(mappa);
@@ -190,7 +175,6 @@ void GameManager::startGame() {
     noecho();
 
     do{
-
 
         mappa->update();
         currentGame = mappa->getCurrentGame();
@@ -225,9 +209,3 @@ void GameManager::startGame() {
     btnGameOver();
 
 }
-
-
-
-
-
-

@@ -119,7 +119,6 @@ int lvl5[20][40] = {
     {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2}
 };
 
-
 Mappa::Mappa(WINDOW* win) {
 
     Stanza* room1 = new Stanza(win, 20, 40, lvl1);
@@ -135,7 +134,6 @@ Mappa::Mappa(WINDOW* win) {
     map5 = new Maps{room5,5,NULL,NULL};
 
     map1->next = map2;
-
 
     map2->prev = map1;
     map2->next = map3;
@@ -184,7 +182,6 @@ Mappa::Mappa(WINDOW* win) {
 
     time = new Time();
     lastTick = steady_clock::now();
-
 }
 
 Stanza* Mappa::getCurrentRoom() {
@@ -196,7 +193,6 @@ Game* Mappa::getCurrentGame() {
 Points *Mappa::score() {
     return points;
 }
-
 
 void Mappa::nextRoom() {
     int x = current->livello->getStanzaX();
@@ -217,7 +213,6 @@ void Mappa::nextRoom() {
 
     current->game->getPlayer()->setStats(v, d, r);
     current->game->getPlayer()->setPosition(1,1);
-
 }
 
 void Mappa::prevRoom() {
@@ -240,14 +235,11 @@ void Mappa::prevRoom() {
     int y = current->livello->getStanzaY();
 
     current->game->getPlayer()->setPosition(y-2,x-2);
-
 }
-
 
 Time* Mappa::getTimer() { return time; }
 
 void Mappa::timer() {
-
     auto now = steady_clock::now();
 
     if (duration_cast<seconds>(now - lastTick).count() >= 1) {
@@ -256,7 +248,6 @@ void Mappa::timer() {
         }
         lastTick = now;
     }
-
 }
 
 void Mappa::delRoom() {
@@ -319,24 +310,17 @@ void Mappa::delRoom() {
 
         if (current->next == NULL)
             current->livello->delPortaNext();
-
     }
-
 }
-
 void Mappa::update() {
-
-
     timer();
 
     Position pos = current->game->getPlayer()->getPosition();
-
 
     if (current->game->getNumNemici() <= 0) {
         delRoom();
         return;
     }
-
     if (current->livello->isPortaNext(pos.y,pos.x)){
         nextRoom();
         return;
@@ -346,7 +330,6 @@ void Mappa::update() {
         return;
     }
 }
-
 
 bool Mappa::getHasWon() {
     return won;
@@ -368,14 +351,12 @@ bool Mappa::endGame() {
         won = true;
         return true;
     }
-
     return false;
 }
 
 int Mappa::getLivello() {
     return current->numLivello;
 }
-
 
 Mappa::~Mappa() {
 

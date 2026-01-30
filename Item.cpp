@@ -10,7 +10,6 @@
 Item::Item(char c) {
     character = c;
     collected = false;
-
 }
 
 bool Item::isCollected() {
@@ -43,7 +42,5 @@ void Item::setEffect(Player *p,Mappa* m) {
     else if (character == 'T') {
         m->getTimer()->addTime(15);
     }
-
-
 }
 

@@ -11,7 +11,6 @@ constexpr  Position directions[4] = { {1,0}, {-1,0}, {0,1}, {0,-1} };
 extern  int maxTerminalY,maxTerminalX;
 extern  int startMainWinX,startMainWinY;
 
-
 void initGlobals();
 
 

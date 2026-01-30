@@ -7,36 +7,19 @@
 
 class Bomba;
 
-
 class Entity {
-    protected:
+ protected:
+
     Position playerPosition;
     char character;
     Stanza* stanza;
 
-
-    public:
+ public:
 
     void setPosition(int y, int x);
-
-
     Position getPosition();
     char getCharacter();
 
-    /*void setVita(int v);
-
-
-    int getVita();
-
-    void decreaseLifeBomba(Bomba *b);*/
-
-
-
-
-
-
-
 };
-
 
 #endif //BOMBERMAN_CHARACTER_H

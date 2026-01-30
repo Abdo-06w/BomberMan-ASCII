@@ -6,7 +6,6 @@ void Entity::setPosition(int y, int x) {
     playerPosition.x = x;
 }
 
-
 Position Entity::getPosition() {
     return playerPosition;
 }

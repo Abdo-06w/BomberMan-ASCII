@@ -7,13 +7,9 @@ class Time {
         int time = 200;
 
     public:
-
         int getTime();
         void setTime(int n);
         void addTime(int n);
-
-
-
 
 };
 

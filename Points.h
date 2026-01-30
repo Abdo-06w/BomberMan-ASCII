@@ -4,19 +4,12 @@
 
 class Points {
     protected:
-
-    int points = 0;
+        int points = 0;
 
     public:
-
-    void addPoints(int p);
-
-    int  getPoints();
-
-    void resetPoints();
-
-
+        void addPoints(int p);
+        int  getPoints();
+        void resetPoints();
 };
-
 
 #endif //BOMBERMAN_POINTS_H

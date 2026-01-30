@@ -6,16 +6,13 @@
 #include <algorithm>
 
 Enemy::Enemy(Position p, Stanza *s,int v,char c) {
-
     playerPosition = p;
     stanza = s;
     character = c;
     vita = v;
-
 }
 
 void Enemy::move(Bomba *b) {
-
     Position bomba = b->getPosition() ;
     Position p = getPosition();
 
@@ -28,7 +25,6 @@ void Enemy::move(Bomba *b) {
 
     for (int k = 0; k < 4; k++) {
         int dir = tried[k];
-
         int newY = p.y + directions[dir].y;
         int newX = p.x + directions[dir].x;
 
@@ -46,26 +42,20 @@ void Enemy::move(Bomba *b) {
         setPosition(newY, newX);
         return;
     }
-
 }
 
 void Enemy::update(Bomba *b) {
-
     time_t now = time(NULL);
 
     if (difftime(now, lastMoveTime) >= moveDelay) {
-
         move(b);
-
         lastMoveTime = now;
     }
-
 }
 
 int Enemy::getVita() {
     return vita;
 }
-
 
 void Enemy::setVita(int v) {
     vita = v;
@@ -93,9 +83,18 @@ void Enemy::takeBombDamage(Bomba* bomb, int damageCooldown) {
     }
 
     for (int i = 0; i < 4; i++) {
-        for (int j = 1; j <= r; j++) {
+        bool stopDirection = false;
+        for (int j = 1; j <= r && !stopDirection; j++) {
+
             int newY = b.y + directions[i].y * j;
             int newX = b.x + directions[i].x * j;
+
+            if (newY < 0 || newY >= stanza->getStanzaY() || newX < 0 || newX >= stanza->getStanzaX()
+               || stanza->isMuroInd(newY, newX) || stanza->isPortaNext(newY,newX) || stanza->isPortaPrev(newY,newX)) {
+                stopDirection = true;
+                break;
+               }
+
             if (newY == p.y && newX == p.x) {
                 decreaseLifeBomba(bomb);
                 lastBombDamageTime = now;

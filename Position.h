@@ -4,7 +4,6 @@
 struct Position {
     int y ;
     int x ;
-
 };
 
 #endif //BOMBERMAN_POSITION_H

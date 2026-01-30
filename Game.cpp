@@ -2,26 +2,20 @@
 #include <cstdlib>
 
 
-
 Game::Game(WINDOW *win,Stanza* r,Points* p) {
     room = r;
     bomb = new Bomba(-1,-1,'*',room);
     player = new Player({1,1},bomb,room);
     render = new Render(win,room);
-
     points = p;
-
     numNemici = 0;
     nemici = new Enemy*[MAX_NEMICI];
-
     render->setBomba(bomb);
     render->setPlayer(player);
     render->setStanza(room);
     render->setPoints(points);
-
     items = new Item*[MAX_ITEMS];
     numItems = 0;
-
 }
 
 Player* Game::getPlayer() { return player; }
@@ -31,7 +25,6 @@ Enemy** Game::getEnemies() { return nemici; }
 Render* Game::getRender() { return render; }
 Points* Game::getPoints() { return points; }
 
-
 int Game::getNumNemici() { return numNemici; }
 
 void Game::bombDamage() {
@@ -40,11 +33,13 @@ void Game::bombDamage() {
 
     player->takeBombDamage(damageCooldown);
 }
+
 int Game::nemiciMorti() {
     int tmp = deadEnemies;
     deadEnemies = 0;
     return tmp;
 }
+
 void Game::addPoints() {
     int muri = bomb->muriEsplosi();
     if (muri > 0)
@@ -174,7 +169,6 @@ void Game::renderGame() {
 
     render->renderBomba();
 }
-
 
 Game::~Game() {
 

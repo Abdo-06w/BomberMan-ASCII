@@ -10,30 +10,35 @@ Bomba::Bomba(int y,int x,char c,Stanza* s) {
     room = s;
 }
 
-
 void Bomba::setPosition(int y, int x) {
     bombPosition.y = y;
     bombPosition.x = x;
 }
+
 Position Bomba::getPosition() {
     return bombPosition;
 }
-char Bomba::getCharacter() {
 
+char Bomba::getCharacter() {
     return character;
 }
+
 int Bomba::getRangeExplosion() {
     return rangeExplosion;
 }
+
 bool Bomba::isDropped() {
     return dropped;
 }
+
 void Bomba::setDropped(bool d) {
     dropped = d;
 }
+
 void Bomba::setExploded(bool e) {
     exploded = e;
 }
+
 bool Bomba::isExploded() {
     return exploded;
 }
@@ -50,10 +55,10 @@ void Bomba::setStats(int r, int d) {
 int Bomba::getBaseDamage() {
     return baseDamage;
 }
+
 int Bomba::getBaseRange() {
     return baseRange;
 }
-
 
 void Bomba::resetBomb() {
     exploded = false;
@@ -62,22 +67,16 @@ void Bomba::resetBomb() {
 }
 
 void Bomba::drop(Position p) {
-
     if (room->isPortaNext(p.y,p.x) || room->isPortaPrev(p.y,p.x))return;
-
     bombPosition = p;
     dropped = true;
     exploded = false;
     start = time(NULL);
 }
 
-
 void Bomba::update() {
-
     time_t now = time(NULL);
-
     if (dropped && difftime(now, start) > 2) {
-
         explode();
         exploded = true;
         explodedTime = now;
@@ -85,12 +84,9 @@ void Bomba::update() {
     }
     if (exploded && difftime(now, explodedTime) > 1)
         resetBomb();
-
 }
 
-
 void Bomba::explode() {
-
     Position b = bombPosition;
     int newY,newX;
 
@@ -116,11 +112,11 @@ void Bomba::explode() {
                 muriDistrutti++;
                 if (numBrokenMuro < MAX_BROKEN_WALLS)
                     lastBrokenMuro[numBrokenMuro++] = { newY, newX };
-
             }
         }
     }
 }
+
 int Bomba::muriEsplosi() {
     int tmp = muriDistrutti;
     muriDistrutti = 0;
@@ -134,6 +130,7 @@ int Bomba::getNumBrokenMuro() {
 Position Bomba::getBrokenMuro(int i) {
     return lastBrokenMuro[i];
 }
+
 void Bomba::resetLastBrokenMuro() {
     numBrokenMuro = 0;
 }

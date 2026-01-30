@@ -4,7 +4,6 @@
 #include "Bomba.h"
 #include "Entity.h"
 
-
 Player::Player(Position p, Bomba* b, Stanza* s) {
     playerPosition = p;
     bomba = b;
@@ -26,17 +25,15 @@ void Player::setStanza(Stanza* s) {
 int Player::getRangeMultiplier() {
     return stats.rangeMultiplier;
 }
-int Player::getDamageMultiplier() {
 
+int Player::getDamageMultiplier() {
     return stats.damageMultiplier;
 }
 
 void Player::setRangeMultiplier(int r) {
-
     stats.rangeMultiplier = r;
 }
 void Player::setDamageMultiplier(int d) {
-
     stats.damageMultiplier = d;
 }
 
@@ -48,13 +45,8 @@ void Player::droppaBomba() {
     int finalDamage = bomba->getBaseDamage() * stats.damageMultiplier;
 
     bomba->setStats(finalRange, finalDamage);
-
     bomba->drop(playerPosition);
-
 }
-
-
-
 
 void Player::moveDown() {
     Position b = bomba->getPosition();
@@ -118,8 +110,6 @@ void Player::takeBombDamage(int coolDown) {
     Position b = bomba->getPosition();
     int r = bomba->getRangeExplosion();
 
-
-
     if (b.y == p.y && b.x == p.x) {
         decreaseLifeBomba();
         damaged = true;
@@ -130,11 +120,18 @@ void Player::takeBombDamage(int coolDown) {
     int newY,newX;
 
     for (int i = 0; i < 4; i++) {
-
-        for (int j = 1; j <= r; j++) {
+        bool stopDirection = false;
+        for (int j = 1; j <= r && !stopDirection; j++) {
 
             newY = b.y + directions[i].y * j ;
             newX = b.x + directions[i].x * j ;
+
+
+            if (newY < 0 || newY >= stanza->getStanzaY() || newX < 0 || newX >= stanza->getStanzaX()
+                || stanza->isMuroInd(newY, newX) || stanza->isPortaNext(newY,newX) || stanza->isPortaPrev(newY,newX)) {
+                stopDirection = true;
+                break;
+                }
 
             if (newY == p.y && newX == p.x) {
                 decreaseLifeBomba();
@@ -144,7 +141,6 @@ void Player::takeBombDamage(int coolDown) {
             }
         }
     }
-
 }
 
 void Player::decreaseLifeEnemy(Enemy* e) {
@@ -153,9 +149,7 @@ void Player::decreaseLifeEnemy(Enemy* e) {
         stats.vita = stats.vita - 2;
 }
 
-
 void Player::takeEnemyDamage(Enemy* e,Position enemyPos,int coolDown) {
-
     time_t now = time(NULL);
     if (difftime(now, lastEnemyDamageTime) < coolDown)
         return;
@@ -166,11 +160,9 @@ void Player::takeEnemyDamage(Enemy* e,Position enemyPos,int coolDown) {
         damaged = true;
         lastEnemyDamageTime = now;
     }
-
 }
 
 bool Player::takenDamage() {
-
     if (damaged) {
         damaged = false;
         return true;
@@ -189,7 +181,4 @@ void Player::setStats(int v,int d,int r) {
     stats.vita = v;
     stats.damageMultiplier = d;
     stats.rangeMultiplier = r ;
-
 }
-
-
