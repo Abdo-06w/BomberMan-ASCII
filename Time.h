@@ -4,7 +4,7 @@
 
 class Time {
     protected:
-        int time = 100;
+        int time = 200;
 
     public:
 

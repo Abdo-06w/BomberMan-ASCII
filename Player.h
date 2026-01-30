@@ -51,9 +51,9 @@ class Player : public Entity {
 
     void takeBombDamage(int coolDown);
 
-    void decreaseLifeEnemy();
+    void decreaseLifeEnemy(Enemy* e);
 
-    void takeEnemyDamage(Position enemyPos,int coolDown);
+    void takeEnemyDamage(Enemy* e,Position enemyPos,int coolDown);
 
     int getRangeMultiplier();
     int getDamageMultiplier();

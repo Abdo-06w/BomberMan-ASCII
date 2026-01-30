@@ -22,7 +22,6 @@ Game::Game(WINDOW *win,Stanza* r,Points* p) {
     items = new Item*[MAX_ITEMS];
     numItems = 0;
 
-
 }
 
 Player* Game::getPlayer() { return player; }
@@ -56,11 +55,11 @@ void Game::addPoints() {
         points->addPoints(100*dead);
 }
 
-void Game::addEnemy(Position p) {
+void Game::addEnemy(Position p,int v,char c) {
     if (numNemici >= MAX_NEMICI)
         return;
 
-    nemici[numNemici] = new Enemy(p, room);
+    nemici[numNemici] = new Enemy(p, room,v,c);
     numNemici++;
 }
 
@@ -83,34 +82,39 @@ void Game::dropItem(Position p) {
 
     int chance = rand() % 100;
 
-    if (numItems < MAX_ITEMS && player->getDamageMultiplier() < 3 && chance < 16) {
+    if (numItems < MAX_ITEMS && player->getDamageMultiplier() < 2 && chance < 16) {
         items[numItems] = new Item('D');
         items[numItems]->setPosition(p);
         numItems++;
     }
 
-    if (numItems < MAX_ITEMS && player->getRangeMultiplier() < 3 && chance > 84) {
+   else if (numItems < MAX_ITEMS && player->getRangeMultiplier() < 3 && chance > 84) {
         items[numItems] = new Item('R');
+        items[numItems]->setPosition(p);
+        numItems++;
+    }
+    else if (numItems < MAX_ITEMS && chance > 19 && chance < 36) {
+        items[numItems] = new Item('T');
         items[numItems]->setPosition(p);
         numItems++;
     }
 
 }
 
-void Game::getItem() {
+void Game::getItem(Mappa* m) {
     Position p = player->getPosition();
 
     for (int i = 0; i < numItems; i++) {
 
         if (p.x == items[i]->getPosition().x && p.y == items[i]->getPosition().y) {
-            items[i]->setEffect(player);
+            items[i]->setEffect(player,m);
             items[i]->collect();
             delete items[i];
             items[i] = items[numItems - 1];
             numItems--;
             i--;
         }
-        else if ((items[i]->getCharacter() == 'D' && player->getDamageMultiplier() >= 3) ||
+        else if ((items[i]->getCharacter() == 'D' && player->getDamageMultiplier() >= 2) ||
                  (items[i]->getCharacter() == 'R' && player->getRangeMultiplier() >= 3)) {
 
             items[i]->collect();
@@ -127,15 +131,15 @@ void Game::resetUpgrade() {
     player->setDamageMultiplier(1);
 }
 
-void Game::update() {
+void Game::update(Mappa* m) {
 
      for (int i = 0; i < numNemici; i++)
-            nemici[i]->update();
+            nemici[i]->update(bomb);
 
         bomb->update();
 
         for (int i = 0; i < numNemici; i++)
-         player->takeEnemyDamage(nemici[i]->getPosition(), damageCooldown);
+         player->takeEnemyDamage(nemici[i],nemici[i]->getPosition(), damageCooldown);
 
         bombDamage();
 
@@ -148,7 +152,7 @@ void Game::update() {
 
         bomb->resetLastBrokenMuro();
 
-        getItem();
+        getItem(m);
 
         checkEnemyLife();
 

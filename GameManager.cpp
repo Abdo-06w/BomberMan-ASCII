@@ -9,20 +9,14 @@ GameManager::GameManager(WINDOW *w,Menu *m) {
     win = w;
     menu = m;
     classifica = m->getClassifica();
-
     keypad(win, true);
-
 }
 
 bool GameManager::isValid(char n[]) {
-
     size_t len = strlen(n);
     if (len < 2 || len > 12) return false;
-
     return true;
-
 }
-
 
 void GameManager::enterName() {
 
@@ -148,25 +142,29 @@ void GameManager::drawGO() {
     werase(win);
     box(win, 0, 0);
 
-    const char* title = "GAME OVER";
-    wattron(win, A_BOLD | A_UNDERLINE);
-    mvwprintw(win, 3, ( X_GAME - strlen(title)) / 2 - 1, "%s", title);
-    wattroff(win, A_BOLD | A_UNDERLINE);
-
-    mvwprintw(win, 7, ( X_GAME - strlen(name)) / 2 - 1, "%s,", name);
-
-    const char* result = vinto ? "YOU WIN!" : "YOU LOSE!";
-    wattron(win, A_BOLD);
-    mvwprintw(win, 10, (X_GAME - strlen(result)) / 2 - 1, "%s", result);
-    wattroff(win, A_BOLD);
-
     if (vinto) {
+
+        const char* title = "YOU WIN";
+        wattron(win, A_BOLD | A_UNDERLINE);
+        mvwprintw(win, 6, ( X_GAME - strlen(title)) / 2 - 1, "%s", title);
+        wattroff(win, A_BOLD | A_UNDERLINE);
+
+        mvwprintw(win, 9, ( X_GAME - strlen(name)) / 2 - 1, "%s", name);
 
         const char* punteggio = "Punteggio: ";
         wattron(win, A_BOLD);
-        mvwprintw(win, 14, (X_GAME - strlen(punteggio)) / 2 - 4, "%s %d", punteggio, score);
+        mvwprintw(win, 12, (X_GAME - strlen(punteggio)) / 2 - 4, "%s %d", punteggio, score);
         wattroff(win, A_BOLD);
 
+
+    }else {
+
+        const char* title = "GAME OVER";
+        wattron(win, A_BOLD | A_UNDERLINE);
+        mvwprintw(win, 7, ( X_GAME - strlen(title)) / 2 - 1, "%s", title);
+        wattroff(win, A_BOLD | A_UNDERLINE);
+
+        mvwprintw(win, 10, ( X_GAME - strlen(name)) / 2 - 1, "%s", name);
 
     }
 
@@ -186,7 +184,7 @@ void GameManager::startGame() {
 
 
     currentGame->getRender()->display();
-    currentGame->getRender()->renderTime(mappa);
+    currentGame->getRender()->renderTimeandLvl(mappa);
 
     nodelay(win, TRUE);
     noecho();
@@ -202,11 +200,11 @@ void GameManager::startGame() {
             currentGame->getPlayer()->handleInput(input);
         }
 
-        currentGame->update();
+        currentGame->update(mappa);
 
         werase(win);
         currentGame->renderGame();
-        currentGame->getRender()->renderTime(mappa);
+        currentGame->getRender()->renderTimeandLvl(mappa);
         wrefresh(win);
 
 

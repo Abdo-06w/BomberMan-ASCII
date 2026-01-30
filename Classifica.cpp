@@ -145,7 +145,7 @@ void Classifica::showClassifica() {
 
 void Classifica::showNumInput() {
     int y = 10;
-    const char* titolo = "Inserisci N:";
+    const char* titolo = "Inserisci Top N:";
     int nameL = strlen(titolo);
     int x = ((X_GAME - nameL) / 2) - 7;
 

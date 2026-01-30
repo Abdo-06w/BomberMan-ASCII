@@ -103,15 +103,17 @@ void Render::renderItems(Item* item) {
 
 
 
-void Render::renderTime(Mappa *m) {
+void Render::renderTimeandLvl(Mappa *m) {
 
     int t = m->getTimer()->getTime();
 
 
-    if (t > 0)
+    if (t >= 0)
         mvwprintw(win,0,2, "Tempo: %d", t);
-    else
-        mvwprintw(win,0,2, "Tempo: %d", 0);
+
+    int l = m->getLivello();
+
+    mvwprintw(win,maxPos.y-1,35, "Lv: %d", l);
 
 }
 

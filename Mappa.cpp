@@ -7,7 +7,7 @@ Maps::~Maps() {
 
 int lvl1[20][40] = {
     {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
-    {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+    {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
     {2,0,1,1,2,1,1,2,1,1,1,1,0,0,1,1,2,1,1,1,2,1,1,1,1,2,1,1,0,0,1,1,2,1,1,2,1,1,0,2},
     {2,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,2},
     {2,0,2,0,0,2,0,0,0,2,0,1,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,1,0,0,2,0,0,2,0,0,0,1,0,2},
@@ -25,9 +25,8 @@ int lvl1[20][40] = {
     {2,0,1,2,1,1,0,0,1,1,1,2,1,1,2,1,0,0,0,1,1,2,1,0,0,0,1,1,2,2,1,1,1,1,0,0,2,0,0,2},
     {2,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2},
     {2,0,1,0,1,0,0,1,1,1,1,0,1,1,0,0,0,2,2,0,0,1,1,2,0,0,0,0,0,2,2,1,0,1,1,1,1,0,0,4},
-    {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2}
+    {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2}
 };
-
 int lvl2[20][40] = {
     {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
     {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
@@ -107,7 +106,7 @@ int lvl5[20][40] = {
     {2,0,1,2,1,0,1,2,1,1,2,1,0,1,2,1,0,1,2,1,1,2,1,0,1,2,1,0,1,2,2,2,2,1,0,1,2,1,0,2},
     {2,0,2,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,0,2},
     {2,0,2,0,0,2,2,0,0,2,0,2,0,2,0,0,2,2,0,0,2,0,2,0,2,0,0,2,2,0,0,2,0,2,0,2,0,0,2,2},
-    {2,0,122,2,1,0,0,1,1,2,1,0,1,2,1,1,0,0,1,2,2,1,0,1,2,1,1,0,0,2,2,2,1,0,2,2,1,0,2},
+    {2,0,1,2,2,1,0,0,1,1,2,1,0,1,2,1,1,0,0,1,2,2,1,0,1,2,1,1,0,0,2,2,2,1,0,2,2,1,0,2},
     {2,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,2},
     {2,2,0,2,0,2,0,2,2,0,0,2,0,2,0,2,2,0,2,2,0,0,2,0,2,0,2,2,0,2,2,0,0,2,0,2,0,2,2,2},
     {2,0,1,1,2,2,0,1,0,0,1,1,2,1,0,1,0,0,1,1,2,1,2,0,1,0,1,0,0,1,1,2,1,2,0,1,2,1,0,2},
@@ -116,7 +115,7 @@ int lvl5[20][40] = {
     {2,0,1,0,1,0,1,0,0,1,0,0,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,2},
     {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
     {2,0,1,2,1,2,1,0,1,2,1,2,1,0,1,2,1,2,1,0,1,2,1,2,1,0,1,2,1,2,1,0,1,2,1,2,1,0,0,2},
-    {2,0,1,2,1,2,1,0,0,0,1,1,1,0,0,0,0,1,0,2,1,1,2,1,0,0,1,1,2,1,0,0,0,0,0,0,0,0,0,4},
+    {2,0,1,2,1,2,1,0,0,0,1,1,1,0,0,0,0,1,0,2,1,1,2,1,0,0,1,1,2,1,0,0,0,0,0,0,0,0,0,2},
     {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2}
 };
 
@@ -129,13 +128,14 @@ Mappa::Mappa(WINDOW* win) {
     Stanza* room4 = new Stanza(win, 20, 40, lvl4);
     Stanza* room5 = new Stanza(win, 20, 40, lvl5);
 
-    map1 = new Maps{room1,NULL,NULL};
-    map2 = new Maps{room2,NULL,NULL};
-    map3 = new Maps{room3,NULL,NULL};
-    map4 = new Maps{room4,NULL,NULL};
-    map5 = new Maps{room5,NULL,NULL};
+    map1 = new Maps{room1,1,NULL,NULL};
+    map2 = new Maps{room2,2,NULL,NULL};
+    map3 = new Maps{room3,3,NULL,NULL};
+    map4 = new Maps{room4,4,NULL,NULL};
+    map5 = new Maps{room5,5,NULL,NULL};
 
     map1->next = map2;
+
 
     map2->prev = map1;
     map2->next = map3;
@@ -153,33 +153,34 @@ Mappa::Mappa(WINDOW* win) {
     points = new Points();
 
     map1->game = new Game(win, room1,points);
-    map1->game->addEnemy({2,2});
+    map1->game->addEnemy({5, 17},1,'O');
+    map1->game->addEnemy({15, 26},1,'O');
 
     map2->game = new Game(win, room2,points);
-    map2->game->addEnemy({2,2});
-    map2->game->addEnemy({3,3});
-
+    map2->game->addEnemy({6, 11},1,'O');
+    map2->game->addEnemy({15, 7},1,'O');
+    map2->game->addEnemy({15, 31},2,'Q');
 
     map3->game = new Game(win, room3,points);
-    map3->game->addEnemy({2,2});
-    map3->game->addEnemy({3,3});
-    map3->game->addEnemy({4,2});
-
+    map3->game->addEnemy({5, 13},1,'O');
+    map3->game->addEnemy({16, 4},1,'O');
+    map3->game->addEnemy({5, 30},2,'Q');
+    map3->game->addEnemy({15, 19},2,'Q');
 
     map4->game = new Game(win, room4,points);
-    map4->game->addEnemy({2,2});
-    map4->game->addEnemy({3,3});
-    map4->game->addEnemy({4,2});
-    map4->game->addEnemy({5,5});
-
+    map4->game->addEnemy({4, 9},1,'O');
+    map4->game->addEnemy({6, 19},1,'O');
+    map4->game->addEnemy({8, 30},2,'Q');
+    map4->game->addEnemy({15, 5},2,'Q');
+    map4->game->addEnemy({17, 20},2,'Q');
 
     map5->game = new Game(win, room5,points);
-    map5->game->addEnemy({2,2});
-    map5->game->addEnemy({3,3});
-    map5->game->addEnemy({4,2});
-    map5->game->addEnemy({5,5});
-    map5->game->addEnemy({6,6});
-
+    map5->game->addEnemy({3, 13},2,'O');
+    map5->game->addEnemy({6, 24},2,'Q');
+    map5->game->addEnemy({15, 12},2,'Q');
+    map5->game->addEnemy({9, 8},2,'Q');
+    map5->game->addEnemy({12, 35},2,'Q');
+    map5->game->addEnemy({18, 39},2,'Q');
 
     time = new Time();
     lastTick = steady_clock::now();
@@ -286,7 +287,7 @@ void Mappa::delRoom() {
             delete current;
             current = tmp;
         }
-        time->addTime(10);
+        time->addTime(25);
         current->game->getPoints()->addPoints(200);
         current->game->getPlayer()->setStats(v+1, d, r);
         current->game->getPlayer()->setPosition(1,1);
@@ -305,7 +306,7 @@ void Mappa::delRoom() {
             delete current;
             current = tmp;
         }
-        time->addTime(10);
+        time->addTime(25);
         current->game->getPoints()->addPoints(200);
         current->game->getPlayer()->setStats(v+1, d, r);
         current->game->getPlayer()->setPosition(y-2,x-2);
@@ -329,6 +330,7 @@ void Mappa::update() {
     timer();
 
     Position pos = current->game->getPlayer()->getPosition();
+
 
     if (current->game->getNumNemici() <= 0) {
         delRoom();
@@ -361,13 +363,17 @@ bool Mappa::endGame() {
     bool noNemici = current->game->getNumNemici() <= 0;
     bool noPorta = !current->livello->isTherePortaNext() && !current->livello->isTherePortaPrev();
     if (noNemici && noPorta) {
-        current->game->update();
+        current->game->update(this);
         napms(700);
         won = true;
         return true;
     }
 
     return false;
+}
+
+int Mappa::getLivello() {
+    return current->numLivello;
 }
 
 

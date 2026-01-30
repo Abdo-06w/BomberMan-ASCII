@@ -3,44 +3,59 @@
 #include "Stanza.h"
 #include "Bomba.h"
 #include <cstdlib>
+#include <algorithm>
 
-Enemy::Enemy(Position p, Stanza *s) {
+Enemy::Enemy(Position p, Stanza *s,int v,char c) {
 
     playerPosition = p;
     stanza = s;
-    character = 'O';
-    vita = 1;
+    character = c;
+    vita = v;
 
 }
 
-void Enemy::move() {
+void Enemy::move(Bomba *b) {
 
+    Position bomba = b->getPosition() ;
     Position p = getPosition();
 
-        int dir = rand() % 4;
+    int tried[4] = {0, 1, 2, 3};
+
+    for (int i = 3; i > 0; i--) {
+        int j = rand() % (i+1);
+        std::swap(tried[i], tried[j]);
+    }
+
+    for (int k = 0; k < 4; k++) {
+        int dir = tried[k];
 
         int newY = p.y + directions[dir].y;
         int newX = p.x + directions[dir].x;
 
         if (newY < 0 || newY >= stanza->getStanzaY() ||
             newX < 0 || newX >= stanza->getStanzaX())
-            return;
+            continue;
+
+        if (bomba.x == newX && bomba.y == newY)
+            continue;
 
         if (stanza->isMuro(newY, newX) || stanza->isMuroInd(newY, newX)
             || stanza->isPortaNext(newY,newX) || stanza->isPortaPrev(newY,newX))
-            return;
+            continue;
 
         setPosition(newY, newX);
+        return;
+    }
 
 }
 
-void Enemy::update() {
+void Enemy::update(Bomba *b) {
 
     time_t now = time(NULL);
 
     if (difftime(now, lastMoveTime) >= moveDelay) {
 
-        /*move();*/
+        move(b);
 
         lastMoveTime = now;
     }

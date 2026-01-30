@@ -3,6 +3,8 @@
 #include "Position.h"
 #include "Player.h"
 
+class Mappa;
+
 class Item {
     protected:
         char character;
@@ -19,7 +21,7 @@ class Item {
         Position getPosition();
         char getCharacter();
 
-        void setEffect(Player *p);
+        void setEffect(Player *p,Mappa* m);
 
 };
 

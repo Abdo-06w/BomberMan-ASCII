@@ -13,7 +13,7 @@
 #include "Time.h"
 
 
-constexpr int MAX_NEMICI = 5;
+constexpr int MAX_NEMICI = 6;
 constexpr int MAX_ITEMS = 10;
 #include <chrono>
 using namespace std::chrono;
@@ -53,13 +53,13 @@ class Game {
     Points* getPoints();
     int getNumNemici();
 
-    void update();
+    void update(Mappa* m);
 
     void bombDamage();
 
     void checkEnemyLife();
 
-    void addEnemy(Position p);
+    void addEnemy(Position p,int v,char c);
 
     void addPoints();
 
@@ -69,9 +69,10 @@ class Game {
 
     void dropItem(Position p);
 
-    void getItem();
+    void getItem(Mappa* m);
 
     void resetUpgrade();
+
 
 
 };

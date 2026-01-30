@@ -22,10 +22,10 @@ protected:
 
 public:
 
-    Enemy(Position p, Stanza *s);
+    Enemy(Position p, Stanza *s,int v,char c);
 
-    void move();
-    void update();
+    void move(Bomba *b);
+    void update(Bomba *b);
 
     int getVita();
     void setVita(int v);

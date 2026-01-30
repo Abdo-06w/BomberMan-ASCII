@@ -10,6 +10,7 @@ class Game;
 
 struct Maps {
     Stanza* livello;
+    int numLivello;
     Game* game;
     Maps* prev;
     Maps* next;
@@ -53,6 +54,8 @@ class Mappa {
     Time* getTimer();
 
     Points* score();
+
+    int getLivello();
 
     void nextRoom();
 

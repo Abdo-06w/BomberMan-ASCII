@@ -57,35 +57,36 @@ void Player::droppaBomba() {
 
 
 void Player::moveDown() {
-
+    Position b = bomba->getPosition();
     int newY = playerPosition.y + 1;
     int roomY = stanza->getStanzaY();
     if (newY > roomY - 1) newY = roomY - 1;
-    if (stanza->isMuro(newY , playerPosition.x) || stanza->isMuroInd(newY , playerPosition.x)) newY--;
+    if (stanza->isMuro(newY , playerPosition.x) || stanza->isMuroInd(newY , playerPosition.x) || b.y == newY && b.x == playerPosition.x) newY--;
     playerPosition.y = newY;
 }
 
 void Player::moveUp() {
-
+    Position b = bomba->getPosition();
     int newY = playerPosition.y - 1;
     if (newY < 0) newY = 0;
-    if (stanza->isMuro(newY , playerPosition.x) || stanza->isMuroInd(newY , playerPosition.x)) newY++;
+    if (stanza->isMuro(newY , playerPosition.x) || stanza->isMuroInd(newY , playerPosition.x) || b.y == newY && b.x == playerPosition.x) newY++;
     playerPosition.y = newY;
 }
 
 void Player::moveLeft() {
-
+    Position b = bomba->getPosition();
     int newX = playerPosition.x - 1;
     if (newX < 0) newX = 0;
-    if (stanza->isMuro(playerPosition.y , newX) || stanza->isMuroInd(playerPosition.y , newX)) newX++;
+    if (stanza->isMuro(playerPosition.y , newX) || stanza->isMuroInd(playerPosition.y , newX) || b.x == newX && b.y == playerPosition.y) newX++;
     playerPosition.x = newX;
 }
 
 void Player::moveRight() {
+    Position b = bomba->getPosition();
     int newX = playerPosition.x + 1;
     int roomX = stanza->getStanzaX();
     if (newX > roomX - 1) newX = roomX - 1;
-    if (stanza->isMuro(playerPosition.y , newX) || stanza->isMuroInd(playerPosition.y , newX)) newX--;
+    if (stanza->isMuro(playerPosition.y , newX) || stanza->isMuroInd(playerPosition.y , newX) || b.x == newX && b.y == playerPosition.y) newX--;
     playerPosition.x = newX;
 }
 
@@ -146,12 +147,14 @@ void Player::takeBombDamage(int coolDown) {
 
 }
 
-void Player::decreaseLifeEnemy() {
-    stats.vita--;
+void Player::decreaseLifeEnemy(Enemy* e) {
+    if (e->getCharacter() == 'O')stats.vita--;
+    else if (e->getCharacter() == 'Q')
+        stats.vita = stats.vita - 2;
 }
 
 
-void Player::takeEnemyDamage(Position enemyPos,int coolDown) {
+void Player::takeEnemyDamage(Enemy* e,Position enemyPos,int coolDown) {
 
     time_t now = time(NULL);
     if (difftime(now, lastEnemyDamageTime) < coolDown)
@@ -159,7 +162,7 @@ void Player::takeEnemyDamage(Position enemyPos,int coolDown) {
 
     Position p = getPosition();
     if (p.x == enemyPos.x && p.y == enemyPos.y) {
-        decreaseLifeEnemy();
+        decreaseLifeEnemy(e);
         damaged = true;
         lastEnemyDamageTime = now;
     }

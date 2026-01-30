@@ -43,7 +43,7 @@ public:
 
   void display();
 
-  void renderTime(Mappa *m);
+  void renderTimeandLvl(Mappa *m);
 
 
 
