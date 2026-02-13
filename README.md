@@ -148,12 +148,12 @@ If no level exists in a given direction, the corresponding door disappears
 
   🐧 Linux
   
-    g++ *.cpp -o bomberman -lncurses
+    g++ src/*.cpp -o bomberman -lncurses
     ./bomberman
 
   🪟 Windows
   
-    g++ *.cpp -o bomberman -lpdcurses
+    g++ src/*.cpp -o bomberman -lpdcurses
     .\bomberman
 
 📦 Dependencies
